@@ -4,3 +4,10 @@ Checkpoint 1 - Sheryl
 Checkpoint 2 -
 Checkpoint 3 - 
 Checkpoint 4 -
+
+
+Task allocation:
+
+Luca - Main Menu functionality, custom array datastructure 
+Alysha - Main menu Blackbox testing, getheight function/flattening and build
+Tommy - Codestyle checker, blackbox testing for getheight/building functions
