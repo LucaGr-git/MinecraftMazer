@@ -53,22 +53,20 @@ int main(void){
 
         // State variable is updated
         curState = States(--intState);
-
-        // TODO FIX LOOPING ERROR WHEN NON INTEGER INPUTS
-
-
-        
     
         
         // if statements are used to determine what should be done based on menu 'State'
         if (curState == ST_Main){
-            // TODO complete menu portion
+            // TODO complete this menu porion
+            std::cout << "TODO : You pressed 1: this hasn't been developed yet";
         }
         else if (curState == ST_GetMaze){
             // TODO complete menu portion
+            std::cout << "TODO : You pressed 1: this hasn't been developed yet";
         }
         else if (curState == ST_SolveMaze){
             // TODO complete menu portion
+            std::cout << "TODO : You pressed 1: this hasn't been developed yet";
         }
         else if (curState == ST_Creators){
             printTeamInfo();
