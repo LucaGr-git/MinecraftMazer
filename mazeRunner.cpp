@@ -19,7 +19,7 @@ enum States{
 
 int main(void){
 
-    //? unsure of what this is 
+    // ?unsure of what this is 
     //bool mode = NORMAL_MODE;
     //read Mode
 
@@ -35,13 +35,29 @@ int main(void){
     {
         printMainMenu(); // main menu options are printed
 
+        char inputChar;
+        std::cin >> inputChar;
+
         int intState;
-        std::cin >> intState;
-        --intState;
+
+        if (isdigit(inputChar)){
+            // if they inputted a digit the program takes the input as a digit
+            intState = static_cast<int>(inputChar);
+            // subtract 1 because enum states start at 0 not 1
+            --intState;
+        }
+        else{
+            // If they have inputted a non digit data type the intState and subsequent State is set to -1
+            intState = -1;
+        }
+
+        // State variable is updated
+        curState = States(--intState);
+
         // TODO FIX LOOPING ERROR WHEN NON INTEGER INPUTS
 
 
-        curState = States(intState);
+        
     
         
         // if statements are used to determine what should be done based on menu 'State'
