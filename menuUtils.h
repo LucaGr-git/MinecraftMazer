@@ -44,6 +44,7 @@ void printTeamInfo(void){
     std::cout << "Team members:" << std::endl;
 
     //TODO: change this part to reflect your team**********
+    //! IMPORTANT !!
     std::cout << "\t [1] Ruwan Tennakoon (ruwan.tennekoon@rmit.edu.au)" << std::endl;
     std::cout << "\t [2] Steven Korevaar (steven.korevaar@rmit.edu.au)" << std::endl;
     //*************
