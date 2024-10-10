@@ -77,7 +77,7 @@ Formatting
             /* * Comment begins here * Comment continues with '*' as start of line (and spaces to align) */
 
 #   Indentation
-        • Use between 2-4 spaces for indentating code.
+        • Use 4 spaces for indentating code.
 
 #   Line length
         • A single line of code must not exceed 80 characters.
