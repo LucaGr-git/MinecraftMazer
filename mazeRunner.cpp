@@ -32,7 +32,15 @@ int main(void){
 
     States curState = ST_Main;
 
-    //State machine for menu        
+
+    // char array to represent maze is created
+    char** maze = new char*[0];
+    maze[0] = new char[0];
+
+    // Array is initialized with only 1 element, a questionmark to represent the array is unchanged
+    maze[0][0] = '/?';
+      
+
     while (curState != ST_Exit)
     {   
 
@@ -59,6 +67,7 @@ int main(void){
         // State variable is updated
         curState = States(--intState);
     
+    
         
         // if statements are used to determine what should be done based on menu 'State'
         if (curState == ST_Main){
@@ -66,8 +75,16 @@ int main(void){
             std::cout << "TODO : You pressed 1: this hasn't been developed yet";
         }
         else if (curState == ST_GetMaze){
-            // TODO complete menu portion
-            std::cout << "TODO : You pressed 1: this hasn't been developed yet";
+            // If the maze is in it's default state i.e. a maze has not been loaded a message is displayed
+            if (maze[0][0] = '\?'){
+                std::cout << "You have not loaded a maze yet.";
+            }
+            else {
+                // TODO complete menu portion
+                std::cout << "TODO : You pressed 1: this hasn't been developed yet";
+            }
+
+            
         }
         else if (curState == ST_SolveMaze){
             // TODO complete menu portion
