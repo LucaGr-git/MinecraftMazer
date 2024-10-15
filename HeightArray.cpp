@@ -11,6 +11,14 @@ class HeightArray2D {
 
     public:
         // Constructor
+        /*
+        CONTRACT 
+        PRE-CONDITION:
+        User of class correctly instantiates an object and gives necessary parameters
+        POST-CONDITION:
+        AN object of HeightArray2D is created and the array + members are initialized
+
+        */
         HeightArray2D(int startXBlocks = 5, int startZBlocks = 5, int startXCoord = 0,int startZCoord = 0) {
             // set X and Y blocks to given amount
             numXBlocks = startXBlocks;
@@ -29,6 +37,13 @@ class HeightArray2D {
         }
 
         // Destructor
+        /*
+        CONTRACT 
+        PRE-CONDITION:
+        User of class correctly instantiates an object and gives necessary parameters
+        POST-CONDITION:
+        HeightArray2D array is cleaned up to prevent memory leaks
+        */
         ~HeightArray2D() {
             // Before deleting outer array delete inner rows
             for (int i = 0; i < numXBlocks; ++i) {
@@ -39,6 +54,13 @@ class HeightArray2D {
         }
 
         // Access element
+        /*
+        CONTRACT 
+        PRE-CONDITION:
+        User of class correctly gives index x and z values that are not out of range
+        POST-CONDITION:
+        The integer at given x/y coordinates are returned
+        */
         int& at(int xVal, int zVal) {
             xVal -= xCoord;
             zVal -= zCoord;
@@ -52,36 +74,81 @@ class HeightArray2D {
         }
 
         // Get number of rows 
-        int getRows() const { 
+        /*
+        CONTRACT 
+        PRE-CONDITION:
+        numXBlocks is well defined
+        POST-CONDITION:
+        The numXBlocks member is returned
+        */
+        int getXBlocks() const { 
             return numXBlocks; 
         }
 
         // Get number of columns
-        int getCols() const { 
+        /*
+        CONTRACT 
+        PRE-CONDITION:
+        numZBlocks is well defined
+        POST-CONDITION:
+        The numZBlocks member is returned
+        */
+        int geZXBlocks() const { 
             return numZBlocks; 
         }
 
         // Get the X coordinate
-        int getXcoord() const { 
+        /*
+        CONTRACT 
+        PRE-CONDITION:
+        xCoord is well defined
+        POST-CONDITION:
+        The xCoord member is returned
+        */
+        int getXCoord() const { 
             return xCoord; 
         }
 
         // Get the Z coordinate
+        /*
+        CONTRACT 
+        PRE-CONDITION:
+        zCoord is well defined
+        POST-CONDITION:
+        The zCoord member is returned
+        */
         int getZCoord() const { 
             return zCoord; 
         }
 
         // Set the X coordinate
+        /*
+        CONTRACT 
+        POST-CONDITION:
+        The xCoord member is changed to the given integer parameter
+        */
         void setXcoord(int newXCoord) { 
             xCoord = newXCoord; 
         }
 
         // Set the Z coordinate
+        /*
+        CONTRACT 
+        POST-CONDITION:
+        The zCoord member is changed to the given integer parameter
+        */
         void setZCoord(int newZcoord) { 
             zCoord = newZcoord; 
         }
 
         // Resize the 2D array
+        /*
+        CONTRACT 
+        User inputs realistic integer values for newNumXBlocks/newNumXZBlocks 
+        i.e. not extremely large numbers or 0 for no reason
+        POST-CONDITION:
+        The array is resized and relevant elements are copied in
+        */
         void resize(int newNumXBlocks, int newNumZBlocks) {
 
             // Make new array and fill with zeroes
@@ -116,6 +183,13 @@ class HeightArray2D {
         }
 
         // populate the array with the heights at the given xCoord and zCoord
+        /*
+        CONTRACT 
+        User has used changed data members to accurately select the portion of the minecraft world (x and z) to make a heightArray
+        i.e. not extremely large numbers or 0 for no reason
+        POST-CONDITION:
+        THe mccp getheight function is called for all x and z elements in the array 
+        */
         void generateHeightArray(){
             mcpp::MinecraftConnection mc;
             for (int i = 0; i < numXBlocks; ++i){
@@ -131,6 +205,11 @@ class HeightArray2D {
 
 
         // Print the 2D array (for demonstration)
+        /*
+        CONTRACT 
+        POST-CONDITION:
+        The array is printed for all elements
+        */
         void print() const {
             std::cout << "{";
             for (int i = 0; i < numXBlocks; ++i) {
