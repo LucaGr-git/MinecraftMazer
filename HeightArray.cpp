@@ -188,19 +188,42 @@ class HeightArray2D {
         User has used changed data members to accurately select the portion of the minecraft world (x and z) to make a heightArray
         i.e. not extremely large numbers or 0 for no reason
         POST-CONDITION:
-        THe mccp getheight function is called for all x and z elements in the array 
+        The mccp getheight function is called for all x and z elements in the array 
         */
-        void generateHeightArray(){
+        void generateHeightArray() {
             mcpp::MinecraftConnection mc;
-            for (int i = 0; i < numXBlocks; ++i){
-                for (int j = 0; j < numZBlocks; ++j){
+            // Iterate through list and update each element with the mccp getHeight at that location
+            for (int i = 0; i < numXBlocks; ++i) {
+                for (int j = 0; j < numZBlocks; ++j) {
                     int height = mc.getHeight(i + xCoord, j + zCoord);
-
                     
                     heightArr[i][j] = height;
 
                 }
             }
+        }
+
+        /*
+        CONTRACT 
+        User has used changed data members to accurately select the portion of the minecraft world (x and z) to make a heightArray
+        i.e. not extremely large numbers or 0 for no reason
+        POST-CONDITION:
+        The array is iterated through and highest value is returned
+        */
+        int getMaxHeight() {
+            int maxHeight = heightArr[0][0];
+
+            //iterate through 2D array
+            for (int i = 0; i < numXBlocks; ++i) {
+                for (int j = 0; j < numZBlocks; ++j) {
+                    // if the array element is bigger than the maxHeight, maxHeight is updated
+                    if (heightArr[i][j] > maxHeight) {
+                        maxHeight = heightArr[i][j];
+                    }
+                }
+            }
+
+            return maxHeight;
         }
 
 
