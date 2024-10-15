@@ -6,7 +6,8 @@
 #include "Maze.h"
 #include "Agent.h"
 
-#include "HeightArray.cpp"
+#include "HeightArray2D.cpp"
+#include "BlockArray3D.cpp"
 
 #define NORMAL_MODE 0
 #define TESTING_MODE 1
@@ -27,16 +28,19 @@ int main(void){
 
     mcpp::MinecraftConnection mc;
 
-    HeightArray2D arr(3,4, 10, 10); // 3 rows, 4 columns
+    BlockArray3D arr(mcpp::Coordinate(0,0,0), mcpp::Coordinate(10,10,10)); // 3 rows, 4 columns
+
+    arr.generateBlockArray();
+
 
     
 
-    std::cout << "Original 2D array:\n";
+    std::cout << "Original 3D array:\n";
     arr.print();
 
     // after reading
-    std::cout << "New 2D array:\n";
-    arr.generateHeightArray();
+    std::cout << "New 3D array:\n";
+    arr.generateBlockArray();
     arr.print();
 
   
