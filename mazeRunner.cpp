@@ -28,29 +28,6 @@ int main(void){
 
     mcpp::MinecraftConnection mc;
 
-    BlockArray3D arr(mcpp::Coordinate(0,0,0), mcpp::Coordinate(10,10,10)); // 3 rows, 4 columns
-
-    arr.generateBlockArray();
-
-
-    
-
-    std::cout << "Original 3D array:\n";
-    arr.print();
-
-    // after reading
-    std::cout << "New 3D array:\n";
-    arr.generateBlockArray();
-    arr.print();
-
-  
-
-
-    return 0;
-
-
-
-
     mc.doCommand("time set day"); 
 
     States curState = ST_Main;

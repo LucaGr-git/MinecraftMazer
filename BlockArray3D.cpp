@@ -25,7 +25,10 @@ class BlockArray3D {
             endCoord = initialEndCoord;
 
             // get the difference in x, y and z
-            diffCoord = startCoord - endCoord;
+            diffCoord =  endCoord - startCoord;
+
+            std::cout << diffCoord;
+
 
             // return error if the given coordinates are not in proper order
             if (diffCoord.x < 0 || diffCoord.y < 0 || diffCoord.z < 0){
@@ -161,8 +164,9 @@ class BlockArray3D {
             endCoord = newEndCoord;
 
             // get the difference in x, y and z
-            diffCoord = startCoord - endCoord;
+            diffCoord = endCoord - startCoord;
 
+            
             // return error if the given coordinates are not in proper order
             if (diffCoord.x < 0 || diffCoord.y < 0 || diffCoord.z < 0){
                 throw std::runtime_error("Coordinate Error: Make sure that the start coordinate is lower than the end coordinate");
@@ -179,13 +183,14 @@ class BlockArray3D {
         The mccp getBlock function is called for all x, y and z elements in the array 
         */
         void generateBlockArray() {
+            //TODO see if optimization is possible? 
             mcpp::MinecraftConnection mc;
             // Iterate through list and update each element with the mccp getHeight at that location
             for (int i = 0; i < diffCoord.x; ++i) {
                 for (int j = 0; j < diffCoord.y; ++j) {
                     for (int k = 0; k < diffCoord.z; ++k) {
 
-                        mcpp::BlockType block = mc.getBlock(mcpp::Coordinate(i,j,k));
+                        mcpp::BlockType block = mc.getBlock(mcpp::Coordinate(i + startCoord.x,j + startCoord.y,k + startCoord.z));
                         
                         blockArr[i][j][k] = block;
 
