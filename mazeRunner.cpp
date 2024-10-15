@@ -6,6 +6,8 @@
 #include "Maze.h"
 #include "Agent.h"
 
+#include "HeightArray.cpp"
+
 #define NORMAL_MODE 0
 #define TESTING_MODE 1
 
@@ -23,16 +25,38 @@ int main(void){
     //bool mode = NORMAL_MODE;
     //read Mode
 
+    mcpp::MinecraftConnection mc;
+
+    HeightArray2D arr(3,4, 10, 10); // 3 rows, 4 columns
+
     
 
-    mcpp::MinecraftConnection mc; 
+    std::cout << "Original 2D array:\n";
+    arr.print();
+
+    // after reading
+    std::cout << "New 2D array:\n";
+    arr.generateHeightArray();
+    arr.print();
+
+  
+
+
+    return 0;
+
+
+
+
     mc.doCommand("time set day"); 
 
     States curState = ST_Main;
 
     //State machine for menu        
     while (curState != ST_Exit)
-    {
+    {   
+
+
+
         printMainMenu(); // main menu options are printed
 
         char inputChar;
