@@ -45,28 +45,28 @@ int main(void){
 
 
     // Create a HeightMap variable, and call the function to get the heights of all blocks within the maze coordinates
-    mcpp::HeightMap worldHeight = getHeightMaze(&maze);
+    mcpp::HeightMap worldHeight = maze.getHeightMaze();
 
     //Create a 2D int vector that will run parallel with worldHeight and MazeStructure
-    std::vector<std::vector<int>> difference = compareHeights(worldHeight, &maze);
+    std::vector<std::vector<int>> difference = maze.compareHeights(worldHeight);
 
 
     
     //IMPORTANT: FROM THIS SECTION ONWARDS ITS VERY IMPORTANT THE FUNCTION ARE IN THIS ORDER TO SUPPORT EDGE CASES
 
     //First call BuildDownTerrain function
-    buildDownTerrain(worldHeight, difference, &maze);
+    maze.buildDownTerrain(worldHeight, difference);
 
     //Then call GetHeightMaze again to generate a new heightmap
-    worldHeight = getHeightMaze(&maze);
+    worldHeight = maze.getHeightMaze();
 
     //Similarly call difference again, to get the new difference
-    difference = compareHeights(worldHeight, &maze);
+    difference = maze.compareHeights(worldHeight);
 
     //Call the Build up Terrain function
-    buildUpTerrain(worldHeight, difference, &maze);
+    maze.buildUpTerrain(worldHeight, difference);
     //Construct the environment
-    buildMaze(&maze);
+    maze.buildMaze();
 
     
     return EXIT_SUCCESS;
