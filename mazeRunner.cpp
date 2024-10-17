@@ -25,7 +25,6 @@ enum States{
 
 int main(void){
 
-    // ?unsure of what this is 
     //bool mode = NORMAL_MODE;
     //read Mode
 
