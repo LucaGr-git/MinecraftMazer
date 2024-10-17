@@ -2,6 +2,7 @@
 #define MAZE
 
 #include <mcpp/mcpp.h>
+#include "MazeCoordinate.h"
 
 
  
@@ -36,6 +37,11 @@ public:
     //  Post-Condition: Stores coordinate in start member.
     void setStart(mcpp::Coordinate* start);
     mcpp::Coordinate* getStart(void);
+
+    /*Contract:
+    *   Pre
+    */
+    void findMazeGaps();
 
     //Contract: 
     //  Pre-Condition:
@@ -214,6 +220,8 @@ private:
     static const int HEIGHT = 3;
 
     mcpp::Coordinate* start;
+
+    std::vector<MazeCoordinate> MazeGaps;
 
     char** mazeStructure;
 

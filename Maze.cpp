@@ -68,19 +68,36 @@ char** Maze::getMazeStructure(void){
 
 void Maze::deallocateMazeStructure(){
     //delete memory
-    for(int i =0; i < this->getLength(); i++){
-        delete[] this->mazeStructure[i];
-        this->mazeStructure[i] = nullptr;
+    if (this->mazeStructure != nullptr) {
+        for(int i =0; i < this->getLength(); i++){
+            if (this->mazeStructure[i] != nullptr){
+                delete[] this->mazeStructure[i];
+                this->mazeStructure[i] = nullptr;
+            }
+        }
+        delete[] this->mazeStructure;
+        this->mazeStructure = nullptr;
     }
-    delete[] this->mazeStructure;
-    this->mazeStructure = nullptr;
 
 }
 
 void Maze::deallocateStart(){
     //Deallocate start
-    delete this->start;
-    this->start = nullptr;
+    if (this->start != nullptr) {
+        delete this->start;
+        this->start = nullptr;
+    }
+}
+
+void Maze::findMazeGaps(){
+    //Iterate throught mazeStructure
+    for (int i = 0; i < this->getLength(); i++) {
+        for (int k = 0; i < this->getWidth(); k++) {
+            if (this->mazeStructure[i][k] == '.'){
+                
+            }
+        }
+    }
 }
 
 
