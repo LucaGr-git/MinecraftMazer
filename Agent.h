@@ -27,6 +27,7 @@ class Agent
 public:
     Agent(mcpp::Coordinate startLoc);
     ~Agent();
+    
 
 private:
     /* data */
