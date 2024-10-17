@@ -3,12 +3,16 @@
 
 #include <mcpp/mcpp.h>
 #include "MazeCoordinate.h"
+#include <cstdlib>
 
 
  
 class Maze
 {
 public:
+
+    static const int HEIGHT = 3;
+
     //constructors and deconstructors
     Maze();
 
@@ -39,9 +43,12 @@ public:
     mcpp::Coordinate* getStart(void);
 
     /*Contract:
-    *   Pre
+    *   Pre-Conditions: Maze structure, length, and width members must be filled correctly
+    *   Post-Conditions: Member mazeGaps get filled with empty maze coords
     */
     void findMazeGaps();
+
+    MazeCoordinate getRandomCoord();
 
     //Contract: 
     //  Pre-Condition:
@@ -217,7 +224,6 @@ private:
     /* data */
     int length;
     int width;
-    static const int HEIGHT = 3;
 
     mcpp::Coordinate* start;
 

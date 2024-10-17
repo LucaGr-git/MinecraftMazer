@@ -13,6 +13,7 @@
 
 #define NORMAL_MODE 0
 #define TESTING_MODE 1
+
 const int ABOVE_GROUND_HEIGHT = 1;
 
 enum States{
@@ -28,6 +29,7 @@ int main(void){
     // ?unsure of what this is 
     //bool mode = NORMAL_MODE;
     //read Mode
+    srand(1);
 
     mcpp::MinecraftConnection mc;
 

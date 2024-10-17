@@ -90,16 +90,28 @@ void Maze::deallocateStart(){
 }
 
 void Maze::findMazeGaps(){
-    //Iterate throught mazeStructure
+    //Iterate through mazeStructure
     for (int i = 0; i < this->getLength(); i++) {
-        for (int k = 0; i < this->getWidth(); k++) {
+        for (int k = 0; k < this->getWidth(); k++) {
             if (this->mazeStructure[i][k] == '.'){
-                MazeCoordinate tempCoord(i, k);
+                MazeCoordinate tempCoord(i+1, k+1);
                 mazeGaps.push_back(tempCoord);
                 std::cout << tempCoord.getLengthCoord() << " " << tempCoord.getWidthCoord() << std::endl;
             }
         }
     }
 }
+
+MazeCoordinate Maze::getRandomCoord() {
+
+    int randomCoordIndex = rand() % mazeGaps.size();
+
+    MazeCoordinate randomCoord = mazeGaps[randomCoordIndex];
+
+    std::cout << randomCoord.getLengthCoord() << " " << randomCoord.getWidthCoord() << std::endl;
+
+    return randomCoord;
+}
+
 
 
