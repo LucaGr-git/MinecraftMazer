@@ -63,11 +63,6 @@ public:
                         mc.setBlock(*(this->getStart()) + mcpp::Coordinate(h, i, w), mcpp::Blocks::ACACIA_WOOD_PLANK);
                     }
                 }
-                else if ((this->getMazeStructure())[h][w] == '.'){
-                    for (int i = 1; i <= HEIGHT; ++i){
-                        mc.setBlock(*(this->getStart()) + mcpp::Coordinate(h, i, w), mcpp::Blocks::AIR);
-                    }
-                }
             }
         }
     }
@@ -85,7 +80,16 @@ public:
     mcpp::HeightMap getHeightMaze(){
         //Sets up MinecraftConnection object
         mcpp::MinecraftConnection mc;
-
+        // delete maze area
+        for(int h =0; h < this->getLength(); h++){
+            for(int w = 0; w < this->getWidth(); w++){
+                for (int i = 1; i <= HEIGHT; ++i){
+                    mc.setBlock(*(this->getStart()) + mcpp::Coordinate(h, i, w), mcpp::Blocks::AIR);
+                    
+                    
+                }
+            }
+        }
         //heights is equal to the maze.getStart value, to the length and width values specified by the user
         mcpp::HeightMap heights = mc.getHeights(*(this->getStart()), (mcpp::Coordinate(this->getStart()->x + this->getLength() - 1, this->getStart()->y, this->getStart()->z + this->getWidth() -1)));
         
@@ -113,6 +117,7 @@ public:
         //Set up minecraft connection
         mcpp::MinecraftConnection mc;  
         mcpp::BlockType blockToPlace;
+
         
         for (int i = 0; i < worldHeight.x_len(); i++) {
             for (int k = 0; k < worldHeight.z_len(); k++) {
