@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <mcpp/mcpp.h>
+#include "MazeCoordinate.h"
+#include "Maze.h"
 
 #define MOVE_XPLUS mcpp::Coordinate(1,0,0)
 #define MOVE_XMINUS mcpp::Coordinate(-1,0,0)
@@ -27,6 +29,9 @@ class Agent
 public:
     Agent(mcpp::Coordinate startLoc);
     ~Agent();
+    MazeCoordinate getRandomCoord(Maze* maze);
+    void teleportPlayer(mcpp::Coordinate location);
+
     
 
 private:
