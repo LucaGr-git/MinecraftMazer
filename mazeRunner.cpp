@@ -162,6 +162,7 @@ int main(void){
             
         }
         else if (curState == ST_SolveMaze){
+            
             // Print the solve maze sub-menu
             printSolveMazeMenu();
 
@@ -175,7 +176,8 @@ int main(void){
                 player.teleportPlayer(*(maze.getStart()) + mcpp::Coordinate(randCoord.getLengthCoord(), ABOVE_GROUND_HEIGHT, randCoord.getWidthCoord()));
             }
             else if (inputChar == '2'){
-                
+                std::cout << "TODO : You pressed 2: this hasn't been developed yet";
+
             }
             else {
 

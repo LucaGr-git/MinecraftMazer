@@ -41,6 +41,8 @@ void readMazeStdin(char** MazeStruct, int length, int width){
     int charsRead = 0;
     char readC;
 
+    std::cout << "Enter the maze structure: " << std::endl;
+
     //Checking the outer char 2D array is not a nullptr
     if (MazeStruct == nullptr){
         throw std::invalid_argument("MazeStruct outer pointer must not be null!");
