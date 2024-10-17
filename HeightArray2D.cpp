@@ -1,6 +1,6 @@
 #include <iostream>
 #include <mcpp/mcpp.h>
-
+// TODO sperate into .h and .cpp files
 class HeightArray2D {
     private:
         int** heightArr;       // Pointer to the 2D array of integers
@@ -77,7 +77,7 @@ class HeightArray2D {
         /*
         CONTRACT 
         PRE-CONDITION:
-        numXBlocks is well defined
+        numXBlocks is well definedcwith the number of blocks in the x-axis
         POST-CONDITION:
         The numXBlocks member is returned
         */
@@ -89,7 +89,7 @@ class HeightArray2D {
         /*
         CONTRACT 
         PRE-CONDITION:
-        numZBlocks is well defined
+        numZBlocks is well defined witht he number of blocks in x-axis
         POST-CONDITION:
         The numZBlocks member is returned
         */
@@ -101,7 +101,7 @@ class HeightArray2D {
         /*
         CONTRACT 
         PRE-CONDITION:
-        xCoord is well defined
+        xCoord is well defined with the start coordinate of x
         POST-CONDITION:
         The xCoord member is returned
         */
@@ -113,7 +113,7 @@ class HeightArray2D {
         /*
         CONTRACT 
         PRE-CONDITION:
-        zCoord is well defined
+        zCoord is well defined with the start coordinate of z
         POST-CONDITION:
         The zCoord member is returned
         */

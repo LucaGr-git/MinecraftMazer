@@ -1,6 +1,9 @@
 #include <iostream>
 #include <mcpp/mcpp.h>
 
+// TODO sperate into .h and .cpp files
+
+
 class BlockArray3D {
     private:
         mcpp::BlockType*** blockArr;    // Pointer to the 3D array of BlockType objects

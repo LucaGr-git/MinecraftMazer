@@ -3,12 +3,15 @@
 #include <mcpp/mcpp.h>
 #include <cctype>
 
-void ReadMazeSize(int& mazeLength, int& mazeWidth){
+// TODO sperate into .h and .cpp files
+
+
+void readMazeSize(int& mazeLength, int& mazeWidth){
     
     std::cout << "Enter the size of the rectangular Environment (H, W): " << std::endl;
     std::cin >> mazeLength;
     std::cin >> mazeWidth;
-    //Legnth and Width > 0
+    //Length and Width > 0
     //Checking if Length and Width are valid
     if (mazeLength <= 0 || mazeWidth <= 0) {
         throw std::invalid_argument("Length or width argument is incorrect!");
@@ -16,7 +19,7 @@ void ReadMazeSize(int& mazeLength, int& mazeWidth){
 
 }
 
-void ReadMazeStart(mcpp::Coordinate** start){
+void readMazeStart(mcpp::Coordinate** start){
     //Checking if start is nullptr
     if (start == nullptr){
         throw std::invalid_argument("The pointer must not be null!");
@@ -72,7 +75,7 @@ void readMazeStdin(char** MazeStruct, int length, int width){
 }
 
 
-void BuildMaze(Maze* maze){
+void buildMaze(Maze* maze){
     mcpp::MinecraftConnection mc;
 
     //Throw error when start member is a null pointer
@@ -107,7 +110,7 @@ void BuildMaze(Maze* maze){
 *       - Especially start, height, width
 *  Post-Conditions: A HeightMap 2D vector is created with the area's height values.
 */
-mcpp::HeightMap GetHeightMaze(Maze* maze){
+mcpp::HeightMap getHeightMaze(Maze* maze){
     //Sets up MinecraftConnection object
     mcpp::MinecraftConnection mc;
 
@@ -130,7 +133,7 @@ mcpp::HeightMap GetHeightMaze(Maze* maze){
 *  Parameters: mcpp::HeightMap, env object
 *  Conditions:
 */
-std::vector<std::vector<int>> CompareHeights(mcpp::HeightMap& worldHeight, Maze* maze) {
+std::vector<std::vector<int>> compareHeights(mcpp::HeightMap& worldHeight, Maze* maze) {
     std::vector<std::vector<int>> differenceOfHeights(worldHeight.x_len(), std::vector<int>(worldHeight.z_len()));
 
     //For loop to iterate through worldHeight y-values, and envStructure y-values
@@ -166,7 +169,7 @@ std::vector<std::vector<int>> CompareHeights(mcpp::HeightMap& worldHeight, Maze*
 *  Post-Conditions: 
 *  - This function will specifically check each positive difference value, and build up from the non-highest air block differnce times
 */
-void BuildUpTerrain(mcpp::HeightMap& worldHeight, std::vector<std::vector<int>> Difference, Maze* maze) {
+void buildUpTerrain(mcpp::HeightMap& worldHeight, std::vector<std::vector<int>> Difference, Maze* maze) {
     //Set up minecraft connection
     mcpp::MinecraftConnection mc;  
     mcpp::BlockType blockToPlace;
@@ -203,7 +206,7 @@ void BuildUpTerrain(mcpp::HeightMap& worldHeight, std::vector<std::vector<int>> 
 *  - This function will specifically check each negative difference value, and build down from the non-highest air block,
 *  decrementing by 1, difference times.
 */
-void BuildDownTerrain(mcpp::HeightMap& worldHeight, std::vector<std::vector<int>> Difference, Maze* maze){
+void buildDownTerrain(mcpp::HeightMap& worldHeight, std::vector<std::vector<int>> Difference, Maze* maze){
     //Set up minecraft connection
     mcpp::MinecraftConnection mc;  
     mcpp::BlockType airBlock = mcpp::BlockType(0);

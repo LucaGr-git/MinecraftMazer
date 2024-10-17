@@ -6,6 +6,8 @@
 #include "Maze.h"
 #include "Agent.h"
 
+#include "Utils.h"
+
 #include "HeightArray2D.cpp"
 #include "BlockArray3D.cpp"
 
@@ -33,13 +35,8 @@ int main(void){
     States curState = ST_Main;
 
 
-    // char array to represent maze is created
-    char** maze = new char*[0];
-    maze[0] = new char[0];
-
-    // Array is initialized with only 1 element, a questionmark to represent the array is unchanged
-    maze[0][0] = '/?';
-      
+    
+    Maze maze;
 
     while (curState != ST_Exit)
     {   
@@ -71,12 +68,39 @@ int main(void){
         
         // if statements are used to determine what should be done based on menu 'State'
         if (curState == ST_Main){
-            // TODO complete this menu porion
-            std::cout << "TODO : You pressed 1: this hasn't been developed yet";
+            while (inputChar != '3'){
+
+                printGenerateMazeMenu();
+                
+                std::cin >> inputChar;
+
+                if (inputChar == '1'){
+                    // TODO complete menu portion
+                    std::cout << "TODO : You pressed 1: this hasn't been developed yet";
+                }
+                else if (inputChar == '2'){
+                    int mazeLength = 0;
+                    int mazeWidth = 0;
+
+
+
+                    readMazeSize(mazeLength, mazeWidth);
+
+                    maze.setLength(mazeLength);
+                    maze.setWidth(mazeWidth);
+
+                }
+                else if (inputChar == '3'){
+
+                }
+                else {
+                    std::cout << "Error: input a valid number between 1 and 3 ...\n";
+                }
+            }
         }
         else if (curState == ST_GetMaze){
             // If the maze is in it's default state i.e. a maze has not been loaded a message is displayed
-            if (maze[0][0] = '\?'){
+            if (maze.getStart() == nullptr || maze.getMazeStructure() == nullptr || maze.getMazeStructure()[0] == nullptr){
                 std::cout << "You have not loaded a maze yet.";
             }
             else {

@@ -11,7 +11,7 @@ int main(void){
     int mazeLength = 0;
     int mazeWidth = 0;
 
-    ReadMazeSize(mazeLength, mazeWidth);
+    readMazeSize(mazeLength, mazeWidth);
 
     // Create instance of Maze class
     Maze maze(mazeLength, mazeWidth);
@@ -38,35 +38,35 @@ int main(void){
     
     // Read the start coordinate
     mcpp::Coordinate* start = nullptr;
-    ReadMazeStart(&start);
+    readMazeStart(&start);
     // std::cout << start->x << "," << start->y << "," << start->z << std::endl;
 
     maze.setStart(start);
 
 
-    // Creat a HeightMap variable, and call the function to get the heights of all blocks within the maze coordinates
-    mcpp::HeightMap worldHeight = GetHeightMaze(&maze);
+    // Create a HeightMap variable, and call the function to get the heights of all blocks within the maze coordinates
+    mcpp::HeightMap worldHeight = getHeightMaze(&maze);
 
     //Create a 2D int vector that will run parallel with worldHeight and MazeStructure
-    std::vector<std::vector<int>> difference = CompareHeights(worldHeight, &maze);
+    std::vector<std::vector<int>> difference = compareHeights(worldHeight, &maze);
 
 
     
     //IMPORTANT: FROM THIS SECTION ONWARDS ITS VERY IMPORTANT THE FUNCTION ARE IN THIS ORDER TO SUPPORT EDGE CASES
 
     //First call BuildDownTerrain function
-    BuildDownTerrain(worldHeight, difference, &maze);
+    buildDownTerrain(worldHeight, difference, &maze);
 
     //Then call GetHeightMaze again to generate a new heightmap
-    worldHeight = GetHeightMaze(&maze);
+    worldHeight = getHeightMaze(&maze);
 
     //Similarly call difference again, to get the new difference
-    difference = CompareHeights(worldHeight, &maze);
+    difference = compareHeights(worldHeight, &maze);
 
     //Call the Build up Terrain function
-    BuildUpTerrain(worldHeight, difference, &maze);
+    buildUpTerrain(worldHeight, difference, &maze);
     //Construct the environment
-    BuildMaze(&maze);
+    buildMaze(&maze);
 
     
     return EXIT_SUCCESS;
