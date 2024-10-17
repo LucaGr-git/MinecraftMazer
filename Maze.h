@@ -221,7 +221,7 @@ private:
 
     mcpp::Coordinate* start;
 
-    std::vector<MazeCoordinate> MazeGaps;
+    std::vector<MazeCoordinate> mazeGaps;
 
     char** mazeStructure;
 

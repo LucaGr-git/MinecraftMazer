@@ -94,7 +94,9 @@ void Maze::findMazeGaps(){
     for (int i = 0; i < this->getLength(); i++) {
         for (int k = 0; i < this->getWidth(); k++) {
             if (this->mazeStructure[i][k] == '.'){
-                
+                MazeCoordinate tempCoord(i, k);
+                mazeGaps.push_back(tempCoord);
+                std::cout << tempCoord.getLengthCoord() << " " << tempCoord.getWidthCoord() << std::endl;
             }
         }
     }
