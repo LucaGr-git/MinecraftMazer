@@ -158,15 +158,6 @@ mcpp::HeightMap Maze::getHeightMaze(){
     }
     //heights is equal to the maze.getStart value, to the length and width values specified by the user
     mcpp::HeightMap heights = mc.getHeights(*(this->getStart()), (mcpp::Coordinate(this->getStart()->x + this->getLength() - 1, this->getStart()->y, this->getStart()->z + this->getWidth() -1)));
-    
-    //FIXME: DEBUG PRINT STATEMENT TO CHECK heights values
-    // for (int i = 0; i < heights.x_len(); i++) {
-    //     for (int k = 0; k < heights.z_len(); k++) {
-    //         std::cout << heights.get(i, k) << " ";
-    //     }
-    //     std::cout << std::endl;
-
-    // }
 
     return heights;
 }
@@ -193,9 +184,7 @@ void Maze::buildUpTerrain(mcpp::HeightMap& worldHeight, std::vector<std::vector<
                 // Sets the block to place as the non-highest airblock at the combination of x, z coordinates.
                 // Where worldHeight.get(i, k) holds the y-coordinate (See GetHeightWorld function for more info)
                 blockToPlace = mc.getBlock(mcpp::Coordinate(this->getStart()->x + i, worldHeight.get(i, k), this->getStart()->z + k));
-                
-                //FIXME: Remove cout (USED FOR DEBUG)
-                // std::cout << blockToPlace.id << ": " << Difference[i][k] << std::endl;
+        
 
                 //m starts at 1
                 //m will increment while m <= Difference at that x,z coordinate
@@ -263,11 +252,8 @@ std::vector<std::vector<int>> Maze::compareHeights(mcpp::HeightMap& worldHeight)
                 difference = abs(difference);
             }
             differenceOfHeights[i][k] = difference;
-            //FIXME: TEST PRINT TO CHECK DIFFERNCE SHOWS UP CORRECTLY
-            // std::cout << differenceOfHeights[i][k] << " ";
         }
-        //FIXME: TEST PRINT TO CHECK DIFFERENCE SHOWS UP CORRECTLY
-        // std::cout << std::endl;
+       
     }
 
     return differenceOfHeights;
