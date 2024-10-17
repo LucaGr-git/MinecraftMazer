@@ -185,7 +185,7 @@ void Maze::buildUpTerrain(mcpp::HeightMap& worldHeight, std::vector<std::vector<
                 // Where worldHeight.get(i, k) holds the y-coordinate (See GetHeightWorld function for more info)
                 blockToPlace = mc.getBlock(mcpp::Coordinate(this->getStart()->x + i, worldHeight.get(i, k), this->getStart()->z + k));
         
-
+                // TODO consider using /fill to save on time efficiency
                 //m starts at 1
                 //m will increment while m <= Difference at that x,z coordinate
                 for (int m = 1; m <= Difference[i][k]; m++) {
