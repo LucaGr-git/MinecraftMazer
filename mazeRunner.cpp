@@ -169,9 +169,10 @@ int main(void){
             
             // Solve manually menu function
             if (inputChar == '1'){
+                Agent player(mcpp::Coordinate(0, 0, 0));
                 maze.findMazeGaps();
-                MazeCoordinate randCoord = maze.getRandomCoord();
-                mc.setPlayerPosition(*(maze.getStart()) + mcpp::Coordinate(randCoord.getLengthCoord(), ABOVE_GROUND_HEIGHT, randCoord.getWidthCoord()));
+                MazeCoordinate randCoord = player.getRandomCoord(&maze);
+                player.teleportPlayer(*(maze.getStart()) + mcpp::Coordinate(randCoord.getLengthCoord(), ABOVE_GROUND_HEIGHT, randCoord.getWidthCoord()));
             }
             else if (inputChar == '2'){
                 
