@@ -8,6 +8,6 @@ Checkpoint 4 -
 
 Task allocation:
 
-Luca - Main Menu functionality, custom array datastructure 
-Alysha - Main menu Blackbox testing, getheight function/flattening and build
-Tommy - Codestyle checker, blackbox testing for getheight/building functions
+Luca - Build Maze and Cleanup Task, E1, Testing Alysha Code
+Alysha - Solve Maze functions, E2, Testing Tommy Code
+Tommy - Generate Maze functions, E3, Testing Luca Code
