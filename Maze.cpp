@@ -102,16 +102,6 @@ void Maze::findMazeGaps(){
     }
 }
 
-MazeCoordinate Maze::getRandomCoord() {
-
-    int randomCoordIndex = rand() % mazeGaps.size();
-
-    MazeCoordinate randomCoord = mazeGaps[randomCoordIndex];
-
-    std::cout << randomCoord.getLengthCoord() << " " << randomCoord.getWidthCoord() << std::endl;
-
-    return randomCoord;
-}
 
 void Maze::buildMaze(){
         mcpp::MinecraftConnection mc;

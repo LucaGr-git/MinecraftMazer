@@ -10,8 +10,10 @@
 class Maze
 {
 public:
-
+    //Data memebers
     static const int HEIGHT = 3;
+    std::vector<MazeCoordinate> mazeGaps;
+
 
     //constructors and deconstructors
     Maze();
@@ -47,8 +49,6 @@ public:
     *   Post-Conditions: Member mazeGaps get filled with empty maze coords
     */
     void findMazeGaps();
-
-    MazeCoordinate getRandomCoord();
 
     //Contract: 
     //  Pre-Condition:
@@ -107,8 +107,6 @@ private:
     int width;
 
     mcpp::Coordinate* start;
-
-    std::vector<MazeCoordinate> mazeGaps;
 
     char** mazeStructure;
 
