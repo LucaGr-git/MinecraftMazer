@@ -15,7 +15,7 @@ public:
     int getWidthCoord();
 };
 
-MazeCoordinate::MazeCoordinate(int lengthCoord, int widthCoord) : widthCoord(widthCoord), lengthCoord(lengthCoord){}
+MazeCoordinate::MazeCoordinate(int lengthCoord, int widthCoord) : lengthCoord(lengthCoord), widthCoord(widthCoord){}
 
 MazeCoordinate::~MazeCoordinate()
 {
