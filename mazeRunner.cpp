@@ -42,8 +42,6 @@ int main(void){
     while (curState != ST_Exit)
     {   
 
-
-
         printMainMenu(); // main menu options are printed
 
         char inputChar;
@@ -54,8 +52,6 @@ int main(void){
         if (isdigit(inputChar)){
             // if they inputted a digit the program takes the input as a digit
             intState = inputChar - '0';
-
-
         }
         else{
             // If they have inputted a non digit data type the intState and subsequent State is set to -1
@@ -78,6 +74,7 @@ int main(void){
                 if (inputChar == '2'){
                     // TODO complete menu portion
                     std::cout << "TODO : You pressed 1: this hasn't been developed yet";
+                    inputChar = '3'; // exit current menu
                 }
                 else if (inputChar == '1'){
                     //Read the width and width of maze (from user input)
@@ -89,9 +86,6 @@ int main(void){
                     maze.setLength(mazeLength);
                     maze.setWidth(mazeWidth);
 
-                    
-                    // std::cout << "Height: " << env.getHeight() << ", Width: " 
-                    //                                 << env.getWidth() << std::endl;
 
                     // Read the structure of the maze
                     char** mazeStructure;
@@ -103,20 +97,14 @@ int main(void){
 
                     maze.setMazeStructure(mazeStructure);
 
-                    // for (int row = 0; row < env.getHeight(); row++){
-                    //     for (int col = 0; col < env.getWidth(); col++){
-                    //         std::cout << env.getEnvStructure()[row][col];
-                    //     }
-                    //     std::cout << std::endl;
-                    // }
 
-                        
                     // Read the start coordinate
                     mcpp::Coordinate* start = nullptr;
                     readMazeStart(&start);
                     // std::cout << start->x << "," << start->y << "," << start->z << std::endl;
 
                     maze.setStart(start);
+                    inputChar = '3'; //  exit current menu 
                     
                 }
                 else if (inputChar == '3'){
@@ -162,25 +150,29 @@ int main(void){
             
         }
         else if (curState == ST_SolveMaze){
-            
-            // Print the solve maze sub-menu
-            printSolveMazeMenu();
+            while (inputChar != 3){
+                // Print the solve maze sub-menu
+                printSolveMazeMenu();
 
-            std::cin >> inputChar;
-            
-            // Solve manually menu function
-            if (inputChar == '1'){
-                Agent player(mcpp::Coordinate(0, 0, 0));
-                maze.findMazeGaps();
-                MazeCoordinate randCoord = player.getRandomCoord(&maze);
-                player.teleportPlayer(*(maze.getStart()) + mcpp::Coordinate(randCoord.getLengthCoord(), ABOVE_GROUND_HEIGHT, randCoord.getWidthCoord()));
-            }
-            else if (inputChar == '2'){
-                std::cout << "TODO : You pressed 2: this hasn't been developed yet";
+                std::cin >> inputChar;
+                
+                // Solve manually menu function
+                if (inputChar == '1'){
+                    Agent player(mcpp::Coordinate(0, 0, 0));
+                    maze.findMazeGaps();
+                    MazeCoordinate randCoord = player.getRandomCoord(&maze);
+                    player.teleportPlayer(*(maze.getStart()) + mcpp::Coordinate(randCoord.getLengthCoord(), ABOVE_GROUND_HEIGHT, randCoord.getWidthCoord()));
+                }
+                else if (inputChar == '2'){
+                    std::cout << "TODO : You pressed 2: this hasn't been developed yet";
 
-            }
-            else {
+                }
+                else  if (inputChar == '3'){
 
+                }
+                else{
+                    std::cout << "Error: input a valid number between 1 and 3 ...\n";
+                }
             }
         }
         else if (curState == ST_Creators){
