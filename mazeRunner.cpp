@@ -65,7 +65,7 @@ int main(void){
         
         // if statements are used to determine what should be done based on menu 'State'
         if (curState == ST_Main){
-            while (inputChar != '3'){
+            while (inputChar != '1'  && inputChar != '2' && inputChar != '3'){
 
                 printGenerateMazeMenu();
                 
@@ -74,7 +74,7 @@ int main(void){
                 if (inputChar == '2'){
                     // TODO complete menu portion
                     std::cout << "TODO : You pressed 1: this hasn't been developed yet";
-                    inputChar = '3'; // exit current menu
+
                 }
                 else if (inputChar == '1'){
                     //Read the width and width of maze (from user input)
@@ -104,7 +104,7 @@ int main(void){
                     // std::cout << start->x << "," << start->y << "," << start->z << std::endl;
 
                     maze.setStart(start);
-                    inputChar = '3'; //  exit current menu 
+
                     
                 }
                 else if (inputChar == '3'){
@@ -150,7 +150,7 @@ int main(void){
             
         }
         else if (curState == ST_SolveMaze){
-            while (inputChar != 3){
+            while (inputChar != '1'  && inputChar != '2' && inputChar != '3'){
                 // Print the solve maze sub-menu
                 printSolveMazeMenu();
 
@@ -162,9 +162,13 @@ int main(void){
                     maze.findMazeGaps();
                     MazeCoordinate randCoord = player.getRandomCoord(&maze);
                     player.teleportPlayer(*(maze.getStart()) + mcpp::Coordinate(randCoord.getLengthCoord(), ABOVE_GROUND_HEIGHT, randCoord.getWidthCoord()));
+                    
+
                 }
                 else if (inputChar == '2'){
                     std::cout << "TODO : You pressed 2: this hasn't been developed yet";
+                    
+
 
                 }
                 else  if (inputChar == '3'){
