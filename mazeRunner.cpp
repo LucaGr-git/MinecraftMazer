@@ -62,7 +62,7 @@ int main(void){
         curState = States(--intState);
     
 
-        
+        inputChar = '0'; // inputChar is reset for the sub-menu's
         // if statements are used to determine what should be done based on menu 'State'
         if (curState == ST_Main){
             while (inputChar != '1'  && inputChar != '2' && inputChar != '3'){
