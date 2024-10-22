@@ -3,9 +3,9 @@
 /*
 * Contract:
 * Post-conditions:
-* - a LinkedList object is instantiated
+* - a LinkedBlocks object is instantiated
 */
-LinkedList::LinkedList() : head(nullptr) {}
+LinkedBlocks::LinkedBlocks() : head(nullptr) {}
 
 /*
 * Contract:
@@ -15,7 +15,7 @@ LinkedList::LinkedList() : head(nullptr) {}
 * - a new node is created and placed at the end of the list using the given coordinate and block type
 */
 // Method to add new node to end of the list
-void LinkedList::append(mcpp::Coordinate coord, mcpp::BlockType block) {
+void LinkedBlocks::append(mcpp::Coordinate coord, mcpp::BlockType block) {
     BlockNode* newNode = new BlockNode(coord, block);
     // if there is no head the node becomes is the head
     if (!head) {
@@ -39,7 +39,7 @@ void LinkedList::append(mcpp::Coordinate coord, mcpp::BlockType block) {
 * - given node is placed at the end of the list 
 */
 // Method to add new node to end of the list
-void LinkedList::append(BlockNode &newNode) {
+void LinkedBlocks::append(BlockNode &newNode) {
     // if there is no head the node becomes is the head
     if (!head) {
         head = &newNode;
@@ -62,7 +62,7 @@ void LinkedList::append(BlockNode &newNode) {
 * - a new node is created and placed at the start of the list using given coordinate and block type
 */
 // Method to add a new node at the start of the list
-void LinkedList::prepend(mcpp::Coordinate coord, mcpp::BlockType block){
+void LinkedBlocks::prepend(mcpp::Coordinate coord, mcpp::BlockType block){
     BlockNode* newNode = new BlockNode(coord, block);
     newNode->next = head; // New node points to head
     head = newNode;       // stored head pointer points to the new start of list (head))
@@ -76,7 +76,7 @@ void LinkedList::prepend(mcpp::Coordinate coord, mcpp::BlockType block){
 * - given node is placed at the start of the list
 */
 // Method to add a given node at the start of the list
-void LinkedList::prepend(BlockNode &newNode){
+void LinkedBlocks::prepend(BlockNode &newNode){
     newNode.next = head; // New node points to head
     head = &newNode;     // stored head pointer points to the new start of list (head))
 }
@@ -90,7 +90,7 @@ void LinkedList::prepend(BlockNode &newNode){
 * - the list is iterated through and printed
 */
 // Method to print the linked list
-void LinkedList::print() const {
+void LinkedBlocks::print() const {
     BlockNode* tempNode = head;
     while (tempNode) {
         std::cout << "Coordinate: " << tempNode->coord << ", BlockType: " << tempNode->block << std::endl;
@@ -104,7 +104,7 @@ void LinkedList::print() const {
 * - the object and it's elements (especially pointers) are deleted/handled
 */
 // Destructor to free the allocated memory
-LinkedList::~LinkedList() {
+LinkedBlocks::~LinkedBlocks() {
     BlockNode* tempNode;
     // all nodes are sequentially deleted
     while (head) {

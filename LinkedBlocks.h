@@ -1,7 +1,7 @@
 #include <mcpp/mcpp.h>
 #include "BlockNode.h"
 
-class LinkedList {
+class LinkedBlocks {
 private:
     BlockNode* head;
 
@@ -9,9 +9,9 @@ public:
     /*
     * Contract:
     * Post-conditions:
-    * - a LinkedList object is instantiated
+    * - a LinkedBlocks object is instantiated
     */
-    LinkedList();
+    LinkedBlocks();
 
     /*
     * Contract:
@@ -69,5 +69,5 @@ public:
     * - the object and it's elements (especially pointers) are deleted/handled
     */
     // Destructor to free the allocated memory
-    ~LinkedList();
+    ~LinkedBlocks();
 };
