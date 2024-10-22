@@ -65,6 +65,16 @@ public:
 
     /*
     * Contract:
+    * Pre-conditions:
+    * - The LinkedList is instantiated and head is relevant/instantiated
+    * Post-conditions:
+    * - a pointer to the head node is returned
+    */
+    // Method to get the head/start of the list
+    BlockNode* getHead();
+
+    /*
+    * Contract:
     * Post-conditions:
     * - the object and it's elements (especially pointers) are deleted/handled
     */

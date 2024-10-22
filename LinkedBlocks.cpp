@@ -81,7 +81,6 @@ void LinkedBlocks::prepend(BlockNode &newNode){
     head = &newNode;     // stored head pointer points to the new start of list (head))
 }
 
-
 /*
 * Contract:
 * Pre-conditions:
@@ -96,6 +95,18 @@ void LinkedBlocks::print() const {
         std::cout << "Coordinate: " << tempNode->coord << ", BlockType: " << tempNode->block << std::endl;
         tempNode = tempNode->next;
     }
+}
+
+/*
+* Contract:
+* Pre-conditions:
+* - The LinkedList is instantiated and head is relevant/instantiated
+* Post-conditions:
+* - a pointer to the head node is returned
+*/
+// Method to get the head/start of the list
+BlockNode* LinkedBlocks::getHead(){
+    return this->head;
 }
 
 /*
