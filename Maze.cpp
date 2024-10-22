@@ -131,7 +131,7 @@ void Maze::buildMaze(){
 *  Contract:
 *  Pre-Conditions: Env class must have all of it's data members correctly filled.
 *       - Especially start, height, width
-*  Post-Conditions: A HeightMap 2D vector is created with the area's height values.
+*  Post-Conditions: A HeightMap 2D array is created with the area's height values.
 */
 mcpp::HeightMap Maze::getHeightMaze(){
     //Sets up MinecraftConnection object
@@ -155,13 +155,13 @@ mcpp::HeightMap Maze::getHeightMaze(){
 
 /* Contract:
 *  Pre-Conditions:
-*  - Assumes that Difference is a filled 2D vector, that has the difference of the highest non-air block of the world, and the
+*  - Assumes that Difference is a filled 2D array, that has the difference of the highest non-air block of the world, and the
 *    player inputted y-coordinate
 *  - Maze class must be filled correctly, all members must be correct
 *  Post-Conditions: 
 *  - This function will specifically check each positive difference value, and build up from the non-highest air block differnce times
 */
-void Maze::buildUpTerrain(mcpp::HeightMap& worldHeight, std::vector<std::vector<int>> Difference) {
+void Maze::buildUpTerrain(mcpp::HeightMap& worldHeight, int ** Difference) {
     //Set up minecraft connection
     mcpp::MinecraftConnection mc;  
     mcpp::BlockType blockToPlace;
@@ -169,13 +169,13 @@ void Maze::buildUpTerrain(mcpp::HeightMap& worldHeight, std::vector<std::vector<
     
     for (int i = 0; i < worldHeight.x_len(); i++) {
         for (int k = 0; k < worldHeight.z_len(); k++) {
-            //Checks if the integer value at the difference vector is positive
+            //Checks if the integer value at the difference array is positive
             if(Difference[i][k] > 0) {
                 // Sets the block to place as the non-highest airblock at the combination of x, z coordinates.
                 // Where worldHeight.get(i, k) holds the y-coordinate (See GetHeightWorld function for more info)
                 blockToPlace = mc.getBlock(mcpp::Coordinate(this->getStart()->x + i, worldHeight.get(i, k), this->getStart()->z + k));
         
-                // TODO consider using /fill to save on time efficiency
+
                 //m starts at 1
                 //m will increment while m <= Difference at that x,z coordinate
                 for (int m = 1; m <= Difference[i][k]; m++) {
@@ -191,27 +191,31 @@ void Maze::buildUpTerrain(mcpp::HeightMap& worldHeight, std::vector<std::vector<
 
 /* Contract:
 *  Pre-Conditions:
-*  - Assumes that Difference is a filled 2D vector, that has the difference of the highest non-air block of the world, and the
+*  - Assumes that Difference is a filled 2D array, that has the difference of the highest non-air block of the world, and the
 *    player inputted y-coordinate
 *  - Maze class must be filled correctly, all members must be correct
 *  Post-Conditions: 
 *  - This function will specifically check each negative difference value, and build down from the non-highest air block,
 *  decrementing by 1, difference times.
 */
-void Maze::buildDownTerrain(mcpp::HeightMap& worldHeight, std::vector<std::vector<int>> Difference){
+void Maze::buildDownTerrain(mcpp::HeightMap& worldHeight, int **  Difference){
     //Set up minecraft connection
     mcpp::MinecraftConnection mc;  
     mcpp::BlockType airBlock = mcpp::BlockType(0);
     mcpp::Coordinate startBlock;
 
-    
     for (int i = 0; i < worldHeight.x_len(); i++) {
         for (int k = 0; k < worldHeight.z_len(); k++) {
             if(Difference[i][k] < 0) {
                 //Sets the start coord, going to iterate y-down difference times
                 startBlock = mcpp::Coordinate(this->getStart()->x + i, worldHeight.get(i, k), this->getStart()->z + k);
                 for (int m = 0; m > Difference[i][k] + HEIGHT; m--) {
-                    mc.setBlock(mcpp::Coordinate(this->getStart()->x + i, startBlock.y + m, this->getStart()->z + k), airBlock);
+
+                    if (mc.getBlock(mcpp::Coordinate(this->getStart()->x + i, startBlock.y + m, this->getStart()->z + k)) == airBlock){
+                    }
+                    else {
+                        mc.setBlock(mcpp::Coordinate(this->getStart()->x + i, startBlock.y + m, this->getStart()->z + k), airBlock);
+                    }
                 }
             }
         }
@@ -220,12 +224,22 @@ void Maze::buildDownTerrain(mcpp::HeightMap& worldHeight, std::vector<std::vecto
 
 
 
-/* WIP : CompareHeightsFunction
-*  Parameters: mcpp::HeightMap, env object
-*  Conditions:
+/* Contract:
+* Pre-conditions:
+*  int array is handled and deleted
+* Post-conditions:
+* an array is instantiated of difference 
 */
-std::vector<std::vector<int>> Maze::compareHeights(mcpp::HeightMap& worldHeight) {
-    std::vector<std::vector<int>> differenceOfHeights(worldHeight.x_len(), std::vector<int>(worldHeight.z_len()));
+int ** Maze::compareHeights(mcpp::HeightMap& worldHeight, int& logicalX, int& logicalZ) {
+    logicalX = worldHeight.x_len();
+    logicalZ = worldHeight.z_len();
+
+    // bcreate inbuilt array
+    int ** differenceOfHeights = new int*[logicalX];
+
+    for (int i = 0; i < logicalX; ++i){
+        differenceOfHeights[i] = new int[logicalZ];
+    }
 
     //For loop to iterate through worldHeight y-values, and envStructure y-values
     for (int i = 0; i < worldHeight.x_len(); i++) {

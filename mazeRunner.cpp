@@ -62,7 +62,7 @@ int main(void){
         curState = States(--intState);
     
 
-        inputChar = '0'; // inputChar is reset for the sub-menu's
+        inputChar = '0'; // inputChar is reset for the
         // if statements are used to determine what should be done based on menu 'State'
         if (curState == ST_Main){
             while (inputChar != '1'  && inputChar != '2' && inputChar != '3'){
@@ -125,8 +125,10 @@ int main(void){
                 // Create a HeightMap variable, and call the function to get the heights of all blocks within the maze coordinates
                 mcpp::HeightMap worldHeight = maze.getHeightMaze();
 
-                //Create a 2D int vector that will run parallel with worldHeight and MazeStructure
-                std::vector<std::vector<int>> difference = maze.compareHeights(worldHeight);
+                int logicalX;
+                int logicalZ;
+                //Create a 2D int array that will run parallel with worldHeight and MazeStructure
+                int ** difference = maze.compareHeights(worldHeight, logicalX, logicalZ);
 
 
                 
@@ -137,9 +139,16 @@ int main(void){
 
                 //Then call GetHeightMaze again to generate a new heightmap
                 worldHeight = maze.getHeightMaze();
+                
+                // Delete difference array 
+
+                for (int i = 0; i < logicalX; ++i){
+                    delete [] difference[i];
+                }
+                delete [] difference;
 
                 //Similarly call difference again, to get the new difference
-                difference = maze.compareHeights(worldHeight);
+                difference = maze.compareHeights(worldHeight, logicalX, logicalZ);
 
                 //Call the Build up Terrain function
                 maze.buildUpTerrain(worldHeight, difference);

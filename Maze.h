@@ -68,38 +68,38 @@ public:
     *  Contract:
     *  Pre-Conditions: Env class must have all of it's data members correctly filled.
     *       - Especially start, height, width
-    *  Post-Conditions: A HeightMap 2D vector is created with the area's height values.
+    *  Post-Conditions: A HeightMap 2D array is created with the area's height values.
     */
     mcpp::HeightMap getHeightMaze();
 
 
     /* Contract:
     *  Pre-Conditions:
-    *  - Assumes that Difference is a filled 2D vector, that has the difference of the highest non-air block of the world, and the
+    *  - Assumes that Difference is a filled 2D array, that has the difference of the highest non-air block of the world, and the
     *    player inputted y-coordinate
     *  - Maze class must be filled correctly, all members must be correct
     *  Post-Conditions: 
     *  - This function will specifically check each positive difference value, and build up from the non-highest air block differnce times
     */
-    void buildUpTerrain(mcpp::HeightMap& worldHeight, std::vector<std::vector<int>> Difference);
+    void buildUpTerrain(mcpp::HeightMap& worldHeight, int ** Difference);
 
     /* Contract:
     *  Pre-Conditions:
-    *  - Assumes that Difference is a filled 2D vector, that has the difference of the highest non-air block of the world, and the
+    *  - Assumes that Difference is a filled 2D array, that has the difference of the highest non-air block of the world, and the
     *    player inputted y-coordinate
     *  - Maze class must be filled correctly, all members must be correct
     *  Post-Conditions: 
     *  - This function will specifically check each negative difference value, and build down from the non-highest air block,
     *  decrementing by 1, difference times.
     */
-    void buildDownTerrain(mcpp::HeightMap& worldHeight, std::vector<std::vector<int>> Difference);
+    void buildDownTerrain(mcpp::HeightMap& worldHeight, int ** Difference);
 
 
     /* WIP : CompareHeightsFunction
     *  Parameters: mcpp::HeightMap, env object
     *  Conditions:
     */
-    std::vector<std::vector<int>> compareHeights(mcpp::HeightMap& worldHeight);
+    int ** compareHeights(mcpp::HeightMap& worldHeight, int& logicalX, int& logicalZ);
 
 private:
     /* data */
