@@ -8,8 +8,6 @@
 
 #include "Utils.h"
 
-#include "HeightArray2D.cpp"
-#include "BlockArray3D.cpp"
 
 #define NORMAL_MODE 0
 #define TESTING_MODE 1
@@ -38,7 +36,14 @@ int main(void){
     // Create instance of Maze class
     Maze maze(1, 1);
 
+    // varaibles for 2d array
+    int logicalX;
+    int logicalZ;
+    //Create a 2D int array that will run parallel with worldHeight and MazeStructure
+    int ** difference; 
 
+    // boolean variable for wheteher a maze has been built
+    bool hasBuilt = false;
     while (curState != ST_Exit)
     {   
 
@@ -125,10 +130,8 @@ int main(void){
                 // Create a HeightMap variable, and call the function to get the heights of all blocks within the maze coordinates
                 mcpp::HeightMap worldHeight = maze.getHeightMaze();
 
-                int logicalX;
-                int logicalZ;
-                //Create a 2D int array that will run parallel with worldHeight and MazeStructure
-                int ** difference = maze.compareHeights(worldHeight, logicalX, logicalZ);
+                difference = maze.compareHeights(worldHeight, logicalX, logicalZ);
+
 
 
                 
@@ -154,6 +157,7 @@ int main(void){
                 maze.buildUpTerrain(worldHeight, difference);
                 //Construct the environment
                 maze.buildMaze();
+                hasBuilt = true;
             }
 
             
@@ -200,6 +204,9 @@ int main(void){
         }
 
         
+    }
+    if (hasBuilt){
+        maze.RevertBuildUpTerrain(difference, logicalX, logicalZ);
     }
 
     printExitMassage();

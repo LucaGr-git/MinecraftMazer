@@ -100,6 +100,9 @@ public:
     *  Conditions:
     */
     int ** compareHeights(mcpp::HeightMap& worldHeight, int& logicalX, int& logicalZ);
+    
+    const void RevertBuildUpTerrain(int **  difference, int logicalX, int logicalZ);
+
 
 private:
     /* data */

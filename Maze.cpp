@@ -161,7 +161,7 @@ mcpp::HeightMap Maze::getHeightMaze(){
 *  Post-Conditions: 
 *  - This function will specifically check each positive difference value, and build up from the non-highest air block differnce times
 */
-void Maze::buildUpTerrain(mcpp::HeightMap& worldHeight, int ** Difference) {
+void Maze::buildUpTerrain(mcpp::HeightMap& worldHeight, int ** difference) {
     //Set up minecraft connection
     mcpp::MinecraftConnection mc;  
     mcpp::BlockType blockToPlace;
@@ -170,7 +170,7 @@ void Maze::buildUpTerrain(mcpp::HeightMap& worldHeight, int ** Difference) {
     for (int i = 0; i < worldHeight.x_len(); i++) {
         for (int k = 0; k < worldHeight.z_len(); k++) {
             //Checks if the integer value at the difference array is positive
-            if(Difference[i][k] > 0) {
+            if(difference[i][k] > 0) {
                 // Sets the block to place as the non-highest airblock at the combination of x, z coordinates.
                 // Where worldHeight.get(i, k) holds the y-coordinate (See GetHeightWorld function for more info)
                 blockToPlace = mc.getBlock(mcpp::Coordinate(this->getStart()->x + i, worldHeight.get(i, k), this->getStart()->z + k));
@@ -178,7 +178,7 @@ void Maze::buildUpTerrain(mcpp::HeightMap& worldHeight, int ** Difference) {
 
                 //m starts at 1
                 //m will increment while m <= Difference at that x,z coordinate
-                for (int m = 1; m <= Difference[i][k]; m++) {
+                for (int m = 1; m <= difference[i][k]; m++) {
                     //Will set the block at that coordinate to the type specified earlier in function
                     //Will go up by 1 in the positive y-direction incrementally
                     mc.setBlock(mcpp::Coordinate(this->getStart()->x + i, worldHeight.get(i, k) + m, this->getStart()->z + k), blockToPlace);
@@ -198,7 +198,7 @@ void Maze::buildUpTerrain(mcpp::HeightMap& worldHeight, int ** Difference) {
 *  - This function will specifically check each negative difference value, and build down from the non-highest air block,
 *  decrementing by 1, difference times.
 */
-void Maze::buildDownTerrain(mcpp::HeightMap& worldHeight, int **  Difference){
+void Maze::buildDownTerrain(mcpp::HeightMap& worldHeight, int **  difference){
     //Set up minecraft connection
     mcpp::MinecraftConnection mc;  
     mcpp::BlockType airBlock = mcpp::BlockType(0);
@@ -206,10 +206,10 @@ void Maze::buildDownTerrain(mcpp::HeightMap& worldHeight, int **  Difference){
 
     for (int i = 0; i < worldHeight.x_len(); i++) {
         for (int k = 0; k < worldHeight.z_len(); k++) {
-            if(Difference[i][k] < 0) {
+            if(difference[i][k] < 0) {
                 //Sets the start coord, going to iterate y-down difference times
                 startBlock = mcpp::Coordinate(this->getStart()->x + i, worldHeight.get(i, k), this->getStart()->z + k);
-                for (int m = 0; m > Difference[i][k] + HEIGHT; m--) {
+                for (int m = 0; m > difference[i][k] + HEIGHT; m--) {
 
                     if (mc.getBlock(mcpp::Coordinate(this->getStart()->x + i, startBlock.y + m, this->getStart()->z + k)) == airBlock){
                     }
@@ -266,3 +266,35 @@ int ** Maze::compareHeights(mcpp::HeightMap& worldHeight, int& logicalX, int& lo
 
 
 
+/* Contract:
+*  Pre-Conditions:
+*  - Assumes that Difference is a filled 2D array, that has the difference of the highest non-air block of the world, and the
+*    player inputted y-coordinate
+*  - Maze class must be filled correctly, all members must be correct
+*  - the built down function must be previously called
+*  Post-Conditions: 
+*  - This function will revert the build up function and replace all placed blocks by that function with air 
+*/
+const void Maze::RevertBuildUpTerrain( int **  difference, int logicalX, int logicalZ){
+
+    std::cout << "Reverting terrain\n";
+    //Set up minecraft connection
+    mcpp::MinecraftConnection mc;  
+    mcpp::BlockType airBlock = mcpp::BlockType(0);
+    mcpp::Coordinate startBlock;
+
+    for (int i = 0; i < logicalX; i++) {
+        for (int k = 0; k < logicalZ; k++) {
+            if(difference[i][k] > 0) {
+
+                //Sets the start coord, going to iterate y-down difference times
+                startBlock = mcpp::Coordinate(this->getStart()->x + i, this->getStart()->y, this->getStart()->z + k);
+                for (int m = 0; m < difference[i][k]; m++) {
+
+                    mc.setBlock(mcpp::Coordinate(this->getStart()->x + i, startBlock.y - m, this->getStart()->z + k), airBlock);
+                    
+                }
+            }
+        }
+    }
+}
