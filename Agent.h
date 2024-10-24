@@ -2,6 +2,9 @@
 #define ASSIGN3_AGENT_H
 
 #include <iostream>
+#include <cstdlib>
+#include <thread>
+#include <chrono>
 #include <mcpp/mcpp.h>
 #include "MazeCoordinate.h"
 #include "Maze.h"
@@ -30,13 +33,27 @@ public:
     Agent(mcpp::Coordinate startLoc);
     ~Agent();
     MazeCoordinate getRandomCoord(Maze* maze);
+    mcpp::Coordinate getPlayerCoord();
+    void setPlayerCoord(mcpp::Coordinate newLoc);
     void teleportPlayer(mcpp::Coordinate location);
+
+    void solveMaze();
 
     
 
 private:
     /* data */
     mcpp::MinecraftConnection mc;
+    mcpp::Coordinate currentLoc;
+    bool movingZPos;
+    bool movingZNeg;
+    bool movingXPos;
+    bool movingXNeg;
+    bool randomDirectionChosen = false;
+
+
+    //Helper method to solve maze
+    void initialisePlayerDirection();
 
 };
 
