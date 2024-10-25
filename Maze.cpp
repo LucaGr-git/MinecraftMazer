@@ -229,7 +229,6 @@ void Maze::buildDownTerrain(mcpp::HeightMap& worldHeight, int **  difference){
 *  int array is handled and deleted
 * Post-conditions:
 * an array is instantiated of difference 
-* logical length and width of array is given to pass-by-reference integers
 */
 int ** Maze::compareHeights(mcpp::HeightMap& worldHeight, int& logicalX, int& logicalZ) {
     logicalX = worldHeight.x_len();
@@ -276,9 +275,9 @@ int ** Maze::compareHeights(mcpp::HeightMap& worldHeight, int& logicalX, int& lo
 *  Post-Conditions: 
 *  - This function will revert the build up function and replace all placed blocks by that function with air 
 */
-const void Maze::RevertBuildUpTerrain(int **  difference, int logicalX, int logicalZ){
+const void Maze::RevertBuildUpTerrain( int **  difference, int logicalX, int logicalZ){
 
-
+    std::cout << "Reverting terrain\n";
     //Set up minecraft connection
     mcpp::MinecraftConnection mc;  
     mcpp::BlockType airBlock = mcpp::BlockType(0);
