@@ -1,239 +1,148 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <random>    // For random number generation
 #include <cstdlib>   // For rand()
 #include <ctime>     // For time()
-#include <cmath>     // For abs()
-#include <stack>
-#include <utility>
 
+//make up down left right
+// void testFunction(std::vector<std::vector<int>>& visitedCells, int rows, int cols, int currRow, int currCol, char** maze, int lastDirection = -1) {
+    
+//     visitedCells[currRow][currCol] = 1;
+//     // Makes current Cell an empty cell
+//     maze[currRow][currCol] = '.';
 
-void checkValid (std::vector<int>& directionChecker, int& randomDirection,  bool& directionIsUnique)
- {
-    //once 4 unqiue directions stored, reset vector
-    if (directionChecker.size() == 4) {
-        directionChecker.clear();
-    }
+//     //0 = UP, 1 = DOWN, 2 = LEFT, 3 = RIGHT
+//     std::vector<int> directions = {0, 3, 1, 2};
+    
+//     //Make directions random
 
-    bool isDuplicate = false;
+    
+//     //Loops for unqiue integers, avoids two consecutive integers with opposite directions
+//     for (int dir : directions) {
+//         // Only proceed if the direction is not the opposite of the last direction
+//         bool isOpposite = false;
+        
+//         //Avoids two consecutive directions being opposites e.g. up and down cannot be consecutive
+//         if (lastDirection == 0 && dir == 1) {         
+//             isOpposite = true;
+//         } 
+//         else if (lastDirection == 1 && dir == 0) { 
+//             isOpposite = true;
+//         } 
+//         else if (lastDirection == 2 && dir == 3) {  
+//             isOpposite = true;
+//         } 
+//         else if (lastDirection == 3 && dir == 2) {  
+//             isOpposite = true;
+//         }
 
-        // Check if the generated direction is already in directionChecker
-    for (unsigned int i = 0; i < directionChecker.size(); i++) {
-        if (randomDirection == directionChecker[i]) {
-            if (randomDirection == 0 && directionChecker[i])
-            isDuplicate = true;
-        }
-    }
+//         if (!isOpposite) {  // Process only if not the opposite direction
+//             int newRow = currRow;
+//             int newCol = currCol;
 
-        // Add randomDirection if it is not a duplicate
-        if (!isDuplicate) {
-            directionIsUnique = true;
-        }
+//             // Calculate the new cell based on direction
+//             if (dir == 0 && currRow > 1) {       // Move UP
+//                 newRow -= 2;
+//             } else if (dir == 1 && currRow < rows - 2) { // Move DOWN
+//                 newRow += 2;
+//             } else if (dir == 2 && currCol > 1) { // Move LEFT
+//                 newCol -= 2;
+//             } else if (dir == 3 && currCol < cols - 2) { // Move RIGHT
+//                 newCol += 2;
+//             } 
 
+//             // Check if the new cell is unvisited
+//             if (visitedCells[newRow][newCol] == 0) {
+//                 // Remove the wall between the current cell and the new cell
+//                 maze[(currRow + newRow) / 2][(currCol + newCol) / 2] = '.';
 
-    // for (unsigned int j = 0; j < directionChecker.size(); j++) {
-    //     std::cout << "direction: " << directionChecker[j] << " ";
-    // }
-    // std::cout << std::endl;
-
-}
-void randomDirection(int& randomDirection) {
-
-    randomDirection = rand() % 4;
-
-}
-
-// void randomDirection(std::vector<int>& directionChecker, int& randomDirection) {
-
-//     //once 4 unqiue directions stored, reset vector
-//     if (directionChecker.size() == 4) {
-//         directionChecker.clear();
-//     }
-
-//     bool isValid = false;
-
-//     //keeps generating random values til valid
-//     while (!isValid) {
-
-//         randomDirection = rand() % 4;
-
-//         // Reset duplicate flag
-//         bool isDuplicate = false;
-
-//         //make numberd generated not 
-
-//         // Check if the generated direction is already in directionChecker
-//         for (unsigned int i = 0; i < directionChecker.size(); i++) {
-//             if (randomDirection == directionChecker[i]) {
-//                 if (randomDirection == 0 && directionChecker[i])
-//                 isDuplicate = true;
+//                 // Recursively visit the new cell, passing the current direction as the last direction
+//                 //If everything is valid, the function is called again and all parameters are passed by reference meaning that are all saved
+//                 testFunction(visitedCells, rows, cols, newRow, newCol, maze, dir);
 //             }
 //         }
-
-//         // Add randomDirection if it is not a duplicate
-//         if (!isDuplicate) {
-//             // directionChecker.push_back(randomDirection);
-//             isValid = true;  // Exit loop by setting isValid to true
-//             directionValid = true;
-//         }
 //     }
-
-
-//     for (unsigned int j = 0; j < directionChecker.size(); j++) {
-//         std::cout << directionChecker[j] << " ";
-//     }
-//     std::cout << std::endl;
+    
+//     //If for loop ends and never reaches isOpposite if statement, this means that the 
+//     // current Cell has no options left, and doesnt add any new stack frame to the function. Thus, uses previous stack frame (goes back to previous coordinates) as 
+    
+//     //If for loop ends and never reaches isOpposite if statement, this means that the 
+//     // current Cell has no options left, and since the function isn't called this means
+//     // that the parameters are not saved as they are not beign passed by reference.
 // }
 
-void generatePath(std::vector<std::vector<int>>& visitedCells, int rows, int cols, unsigned int& currRows, unsigned int& currCols, int& randomDirections, char**& maze, std::vector<int>& directionChecker) {
-    
-    int tempRow = currRows; //3
-    int tempCol = currCols; //1
+void generatePath(std::vector<std::vector<int>>& visitedCells, int rows, int cols, int currRow, int currCol, char** maze, bool& randomGenerate, int lastDirection = -1) {
+    // Makes current Cell visited 
+    visitedCells[currRow][currCol] = 1;
+    // Makes current Cell an empty cell
+    maze[currRow][currCol] = ' ';
 
-    //checks if direction is valid for newly explored cells
-    bool directionValid = false;
-
-    //now checks if new direction is valid if not reroll
-    bool directionIsValid = false;
-
-
-    //
-    bool directionIsUnique = false;
-
-     std::vector<std::vector<int>> gapOddNumbered(rows, std::vector<int>(cols, 1));
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                if (i % 2 != 0 && j % 2 != 0) {
-                    gapOddNumbered[i][j] = 0;
-                }
-            }
-        }
-
-    while(!directionIsValid) {
-        directionIsValid = false;
-        directionValid = false;
-        tempRow = currRows;
-        tempCol = currCols;
-        randomDirections = -1;
-        randomDirection(randomDirections);
-
-        
-
-        // std::cout << "Curr rows " << currRows << " CurrCols " << currCols << std::endl;
-        //initialize vector with all odd cells be 0's
-
-        //issue of seg fault
-
-
-        if (randomDirections == 0) {  // Move UP
-
-            tempRow--;
-            // if (gapOddNumbered[tempRow][tempCol] == 0) {
-            //     currRows--;
-            //     maze[currRows][currCols] = 0;
-            // }
-            if (tempRow > 0 && tempRow < (rows - 1) && visitedCells[tempRow][currCols] != 1) {  // Ensure tempRow stays within bounds and not visited
-                
-                visitedCells[currRows][currCols + 1] = 1;
-                visitedCells[currRows][currCols - 1] = 1;
-                currRows--;
-                visitedCells[currRows][currCols] = 1;
-
-                directionValid = true;
-
-                visitedCells[currRows][tempCol + 1] = 1;
-                visitedCells[currRows][tempCol - 1] = 1;
-                    currRows--;
-                    visitedCells[currRows][currCols] = 1;
-                std::cout << "stuck" << std::endl;
-
-            }
-        } 
-        else if (randomDirections == 1) {  // Move DOWN
-            tempRow++; 
-
-            if (tempRow > 0 && tempRow < (rows - 1) && visitedCells[tempRow][tempCol] != 1) {  // Ensure tempRow stays within bounds and not visited
-                visitedCells[currRows][tempCol + 1] = 1;
-                visitedCells[currRows][tempCol - 1] = 1;
-                currRows++;
-                visitedCells[currRows][currCols] = 1;
-                directionValid = true;
-
-                tempRow++;
-
-                    visitedCells[currRows][tempCol + 1] = 1;
-                    visitedCells[currRows][tempCol - 1] = 1;
-                    currRows++;
-                    visitedCells[currRows][currCols] = 1;
-
-        
-                std::cout << "stuck2" << std::endl;
-
-            }
-        } 
-        else if (randomDirections == 2) {  // Move LEFT
-            tempCol--; 
-
-            if (tempCol > 0 && tempCol < (cols - 1) && visitedCells[tempRow][tempCol] !=1) {  // Ensure tempCol stays within bounds and not visited
-                visitedCells[tempRow + 1][currCols] = 1;
-                visitedCells[tempRow - 1][currCols] = 1;
-                currCols--;
-                visitedCells[currRows][currCols] = 1;
-                directionValid = true;
-
-
-                tempCol--; 
-                    visitedCells[tempRow + 1][currCols] = 1;
-                    visitedCells[tempRow - 1][currCols] = 1;
-                    currCols--;
-                    visitedCells[currRows][currCols] = 1;
-                
-
-                std::cout << "stuck3" << std::endl;
-            }
-        } 
-        else if (randomDirections == 3) {  // Move RIGHT
-            tempCol++; 
-
-            if (tempCol > 0 && tempCol < (cols - 1) && visitedCells[tempRow][tempCol] != 1) {  // Ensure tempCol stays within bounds and not visited
-                visitedCells[tempRow + 1][currCols] = 1;
-                visitedCells[tempRow - 1][currCols] = 1;
-                currCols++;
-                visitedCells[currRows][currCols] = 1;
-
-                directionValid = true;
-
-                tempCol++;
-                    visitedCells[tempRow + 1][currCols] = 1;
-                    visitedCells[tempRow - 1][currCols] = 1;
-                    currCols++;
-                    visitedCells[currRows][currCols] = 1;
-
-                
-
-
-
-                std::cout << "stuck4" << std::endl;
-            }
-        }
-        
-
-        //checks if the direction that is valid for empty cells is valid for duplicated directions or not
-        if (directionValid) {
-            directionIsUnique = false;
-            checkValid(directionChecker, randomDirections, directionIsUnique);
-            if (directionIsUnique) {
-            std::cout << "direction valid for non dupes and unique directions: " << randomDirections << std::endl;
-                directionChecker.push_back(randomDirections);
-                directionIsValid = true;
-            }
-        }
-
+    //0 = UP, 1 = DOWN, 2 = LEFT, 3 = RIGHT
+    std::vector<int> directions = {0, 1, 2, 3};
+    //Make directions randomstd::vector<int> directions = {0, 1, 2, 3};
+    if (randomGenerate) {
+        std::random_shuffle(directions.begin(), directions.end()); 
     }
-}
+    else {
+        std::vector<int> diretionsTest = {0, 3, 1, 2};
+        directions = diretionsTest;
+    }
+    
+    
+    //Loops for unqiue integers, avoids two consecutive integers with opposite directions
+    for (int dir : directions) {
+        // Only proceed if the direction is not the opposite of the last direction
+        bool isOpposite = false;
+        
+        //Avoids two consecutive directions being opposites e.g. up and down cannot be consecutive
+        if (lastDirection == 0 && dir == 1) {         
+            isOpposite = true;
+        } 
+        else if (lastDirection == 1 && dir == 0) { 
+            isOpposite = true;
+        } 
+        else if (lastDirection == 2 && dir == 3) {  
+            isOpposite = true;
+        } 
+        else if (lastDirection == 3 && dir == 2) {  
+            isOpposite = true;
+        }
 
+        if (!isOpposite) {  // Process only if not the opposite direction
+            int newRow = currRow;
+            int newCol = currCol;
+
+            // Calculate the new cell based on direction
+            if (dir == 0 && currRow > 1) {       // Move UP
+                newRow -= 2;
+            } else if (dir == 1 && currRow < rows - 2) { // Move DOWN
+                newRow += 2;
+            } else if (dir == 2 && currCol > 1) { // Move LEFT
+                newCol -= 2;
+            } else if (dir == 3 && currCol < cols - 2) { // Move RIGHT
+                newCol += 2;
+            } 
+
+            // Check if the new cell is unvisited
+            if (visitedCells[newRow][newCol] == 0) {
+                // Remove the wall between the current cell and the new cell
+                maze[(currRow + newRow) / 2][(currCol + newCol) / 2] = ' ';
+
+                // Recursively visit the new cell, passing the current direction as the last direction
+                //If everything is valid, the function is called again and all parameters are passed by reference meaning that are all saved
+                
+                generatePath(visitedCells, rows, cols, newRow, newCol, maze, randomGenerate);
+            }
+        }
+    }
+    
+    //If for loop ends and never reaches isOpposite if statement, this means that the 
+    // current Cell has no options left, and doesnt add any new stack frame to the function. Thus, uses previous stack frame (goes back to previous coordinates) as 
+    
+    //If for loop ends and never reaches isOpposite if statement, this means that the 
+    // current Cell has no options left, and since the function isn't called this means
+    // that the parameters are not saved as they are not beign passed by reference.
+}
 
 
 
@@ -326,86 +235,93 @@ void initializeMaze(char** maze, int rows, int cols) {
     }
 
 }
+//set maze dimensions (only odd integers)
+void ReadMazeDimensions(int& rows, int& cols) {
+    std::cout << "Enter height (h) and width (w) of maze: " << std::endl;
+    std::cin >> rows >> cols;
 
+    if (rows % 2 == 0 || cols % 2 == 0) {
+        throw std::invalid_argument("Height and Width are not odd!");
+    }
+}
 
 int main() {
     //initialize seed to current time
     srand(std::time(0));
-    //set maze dimensions (only odd integers)mak
-     int rows = 7;
-     int cols = 7;
-
-     cols -= 2;
+    int num;
+    std::cout << "Test mode (1) or Generate randomly(2)?" << std::endl;
+    std::cin >> num;
+        
+    bool randomGenerate = true;
+        
+    int rows;
+    int cols;
+    ReadMazeDimensions(rows, cols);
+    
+    cols -= 2;
     //Maze created with walls (1) and empty cells (0)
     char** maze = new char*[rows];
     
     //initialize maze size with walls and empty odd cells
-    initializeMaze(maze, rows, cols);
-
     unsigned int spawnRow = 0;
     unsigned int spawnCol = 0;
     
-    //get random spawn location
-    initializeRandomSpawnPoint(rows, cols, spawnRow, spawnCol);
-    //set random spawn location to '?'
+    std::vector<std::vector<int>> visitedCells(rows, std::vector<int>(cols, 0));
 
-    maze[spawnRow][spawnCol] = '?';
-    // std::cout << "startin" << spawnRow << " col" << spawnCol << std::endl;
+    if (num == 2) {
+        initializeMaze(maze, rows, cols);
+        
+        //get random spawn location
+        initializeRandomSpawnPoint(rows, cols, spawnRow, spawnCol);
+        //set random spawn location to '?'
     
-    
-    unsigned int exitRow = spawnRow;
-    unsigned int exitCol = spawnCol;
-    
-    initializeExitPoint(rows, cols, exitRow, exitCol);
-    // std::cout << "error: " << exitRow << " " << exitRow << std::endl;
-    maze[exitRow][exitCol] = '!';
-
+        // maze[spawnRow][spawnCol] = '?';
+        // std::cout << "startin" << spawnRow << " col" << spawnCol << std::endl;
+        randomGenerate = true;
+        
+        unsigned int exitRow = spawnRow;
+        unsigned int exitCol = spawnCol;
+        
+        initializeExitPoint(rows, cols, exitRow, exitCol);
+        // std::cout << "error: " << exitRow << " " << exitRow << std::endl;
+        maze[exitRow][exitCol] = ' ';
+        
+        unsigned int currRows = spawnRow;
+        unsigned int currCols = spawnCol;
+        
+        generatePath(visitedCells, rows, cols, currRows, currCols, maze, randomGenerate);
+    }
+    else {
+        initializeMaze(maze, rows, cols);
+        unsigned int spawnRow = 1;
+        unsigned int spawnCol = 1;
+        maze[1][0] = ' ';
+            // std::cout << "error: " << exitRow << " " << exitRow << std::endl;
+        randomGenerate = false;
+        unsigned int currRows = spawnRow;
+        unsigned int currCols = spawnCol;
+        generatePath(visitedCells, rows, cols, currRows, currCols, maze, randomGenerate);
+    }
 
 
     // std::stack<std::stack<int>>& vistiedCells;
 
-    std::vector<std::vector<int>> visitedCells(rows, std::vector<int>(cols, 0));
 
-    int direction = -1;
-    std::vector<int> directionChecker;
-
+    // int direction = -1;
+    // std::vector<int> directionChecker;
 
 
-    unsigned int currRows = spawnRow;
-    unsigned int currCols = spawnCol;
-    
-    while (!visitedCells.empty()) {
-        
-        generatePath(visitedCells, rows, cols, currRows, currCols, direction, maze, directionChecker);
-        maze[currRows][currCols] = '.';
 
-            if (direction == 0) {
-                currRows++;
-                maze[currRows][currCols] = '.';
-            }
-            else if (direction == 1) {
-                currRows--;
-                maze[currRows][currCols] = '.';
-
-            }
-            else if(direction == 2) {
-                currCols++;
-                maze[currRows][currCols] = '.';
-            }
-            else if (direction == 3) {
-                currCols--;
-                maze[currRows][currCols] = '.';
-            }
-
+ 
             
 
-        for (unsigned int j = 0; j < directionChecker.size(); j++) {
-            std::cout << "direction: " << directionChecker[j] << " ";
-        }
-        std::cout << std::endl;
+        // for (unsigned int j = 0; j < directionChecker.size(); j++) {
+        //     std::cout << "direction: " << directionChecker[j] << " ";
+        // }
+        // std::cout << std::endl;
 
 
-    }
+
 
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
