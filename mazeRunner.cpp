@@ -57,7 +57,7 @@ int main(int argc, char** argv){
     int logicalZ;
     //Create a 2D int array that will run parallel with worldHeight and 
     // MazeStructure
-    int ** difference; 
+    int ** difference = nullptr; 
     // create linkedblock list
     LinkedBlocks blockList;
 
@@ -133,10 +133,10 @@ int main(int argc, char** argv){
 
                         maze.printMaze(start);
                     }
-                    catch (std::invalid_argument e){
+                    catch (std::invalid_argument const& e){
                         std::cout << "An error occured: " << e.what() << "\n";
                     }
-                    catch (std::exception e){
+                    catch (std::exception const& e){
                         std::cout << "An error occured: " << e.what() << "\n";
                         
                     }
@@ -280,10 +280,15 @@ int main(int argc, char** argv){
         maze.revertBuildUpTerrain(difference, logicalX, logicalZ);
         maze.revertMazeBuild(blockList);
         // delete difference array
-        for (int i = 0; i < logicalX; ++i){
-            delete [] difference[i];
+        if (difference != nullptr && difference != NULL) {
+            for (int i = 0; i < logicalX; ++i){
+                if (difference[i] != nullptr) {
+                    delete [] difference[i];
+                }
+            }
+        
+            delete [] difference;
         }
-        delete [] difference;
     }
 
     printExitMassage();
