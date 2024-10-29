@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cstdlib>   // For rand()
 #include <ctime>     // For time()
+#include <random>
 
 void generatePath(std::vector<std::vector<int>>& visitedCells, int rows, 
                         int cols, int currRow, int currCol, char** maze, 
@@ -16,7 +17,13 @@ void generatePath(std::vector<std::vector<int>>& visitedCells, int rows,
     std::vector<int> directions = {0, 1, 2, 3};
     //Make directions randomstd::vector<int> directions = {0, 1, 2, 3};
     if (randomGenerate) {
-        std::random_shuffle(directions.begin(), directions.end()); 
+        // used to get seed
+        std::random_device rng; 
+        // get pseudo-random object with random seed
+        std::mt19937 urng(rng()); 
+        std::shuffle(directions.begin(), directions.end(), urng);
+        // DEPRECATED 
+        //std::random_shuffle(directions.begin(), directions.end()); 
     }
     else {
         std::vector<int> diretionsTest = {0, 3, 1, 2};
@@ -103,7 +110,7 @@ void initializeExitPoint(int rows, int cols, unsigned int& exitRow,
     int smallestDistance = std::min({distanceFromTop, distanceFromBottom, 
                                      distanceFromLeft, distanceFromRight});
 
-    if (smallestDistance == distanceFromTop) { //good
+    if (smallestDistance == distanceFromTop) { 
         exitRow -= 1;
                 // std::cout << "1" << std::endl;
 
