@@ -100,11 +100,10 @@ int main(int argc, char** argv){
 
                 if (inputChar == '2'){
                     try {
-                        // TODO complete menu portion
+
                         srand(std::time(0));
-                        std::cout << "before start" << std::endl;
+
                         readMazeStart(start, false);
-                        std::cout << "after start" << std::endl;
 
                            
                         //Read the width and width of maze (from user input)
