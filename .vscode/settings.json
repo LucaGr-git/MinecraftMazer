@@ -71,5 +71,6 @@
         "text_encoding": "cpp",
         "thread": "cpp",
         "cinttypes": "cpp"
-    }
+    },
+    "editor.rulers": [80]
 }
