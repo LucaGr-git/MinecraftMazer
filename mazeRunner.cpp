@@ -238,6 +238,7 @@ int main(int argc, char** argv){
                 
                 // Solve manually menu function
                 if (inputChar == '1'){
+                    // todo make sure maze must be built before solving
                     maze.findMazeGaps();
                     MazeCoordinate randCoord = player.getRandomCoord(&maze);
                     player.teleportPlayer(*(maze.getStart()) + mcpp::Coordinate(randCoord.getLengthCoord(), ABOVE_GROUND_HEIGHT, randCoord.getWidthCoord()));
@@ -246,6 +247,7 @@ int main(int argc, char** argv){
                 }
                 // Show escape route function
                 else if (inputChar == '2'){
+                    // todo make sure maze must be built before solving
                     //Check if the player is within the maze
                     player.setPlayerCoord(mc.getPlayerPosition());
                     player.solveMaze();
