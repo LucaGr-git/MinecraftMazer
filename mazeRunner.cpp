@@ -230,27 +230,25 @@ int main(int argc, char** argv){
         else if (curState == ST_SolveMaze){
             while (inputChar != '1'  && inputChar != '2' && inputChar != '3'){
                 // Print the solve maze sub-menu
-                printSolveMazeMenu();
+                printSolveMazeMenu();                
+
+                Agent player(mcpp::Coordinate(0, 0, 0));
 
                 std::cin >> inputChar;
                 
                 // Solve manually menu function
                 if (inputChar == '1'){
-                    Agent player(mcpp::Coordinate(0, 0, 0));
                     maze.findMazeGaps();
                     MazeCoordinate randCoord = player.getRandomCoord(&maze);
-                    player.teleportPlayer(
-                                    *(maze.getStart()) + 
-                                    mcpp::Coordinate(randCoord.getLengthCoord(),
-                                    ABOVE_GROUND_HEIGHT, 
-                                    randCoord.getWidthCoord()));
+                    player.teleportPlayer(*(maze.getStart()) + mcpp::Coordinate(randCoord.getLengthCoord(), ABOVE_GROUND_HEIGHT, randCoord.getWidthCoord()));
                     
 
                 }
+                // Show escape route function
                 else if (inputChar == '2'){
-                    std::cout << 
-                        "TODO : You pressed 2: this hasn't been developed yet";
-                    
+                    //Check if the player is within the maze
+                    player.setPlayerCoord(mc.getPlayerPosition());
+                    player.solveMaze();
 
 
                 }
