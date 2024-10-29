@@ -1,12 +1,19 @@
+#ifndef BLOCKNODE
+#define BLOCKNODE
 
 #include <mcpp/mcpp.h>
 
 
 class BlockNode {
 public:
-    mcpp::Coordinate coord;       // coordinate data member
-    mcpp::BlockType block;        // blockType data member
-    BlockNode* next;              // Pointer to next node
+    // coordinate data member
+    mcpp::Coordinate coord;    
+    // blockType data member   
+    mcpp::BlockType block;   
+    // Pointer to next node     
+    BlockNode* next;              
 
     BlockNode(mcpp::Coordinate coord, mcpp::BlockType block); 
 };
+
+#endif

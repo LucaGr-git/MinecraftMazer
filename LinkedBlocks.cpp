@@ -12,7 +12,8 @@ LinkedBlocks::LinkedBlocks() : head(nullptr) {}
 * Pre-conditions:
 * - a valid coordinate and blockType is passed to the method
 * Post-conditions:
-* - a new node is created and placed at the end of the list using the given coordinate and block type
+* - a new node is created and placed at the end of the list using the given c
+* oordinate and block type
 */
 // Method to add new node to end of the list
 void LinkedBlocks::append(mcpp::Coordinate coord, mcpp::BlockType block) {
@@ -22,7 +23,7 @@ void LinkedBlocks::append(mcpp::Coordinate coord, mcpp::BlockType block) {
         head = newNode;
     }
     else {
-        // list is iterated through and the final node now points to the created node
+        // list is iterated through and the final node now points to the node
         BlockNode* tempNode = head;
         while (tempNode->next) {
             tempNode = tempNode->next;
@@ -45,7 +46,7 @@ void LinkedBlocks::append(BlockNode &newNode) {
         head = &newNode;
     }
     else {
-        // list is iterated through and the final node now points to the given node
+        // list is iterated through and the final node now points to the node
         BlockNode* tempNode = head;
         while (tempNode->next) {
             tempNode = tempNode->next;
@@ -59,13 +60,16 @@ void LinkedBlocks::append(BlockNode &newNode) {
 * Pre-conditions:
 * - a valid coordinate and blockType is passed to the method
 * Post-conditions:
-* - a new node is created and placed at the start of the list using given coordinate and block type
+* - a new node is created and placed at the start of the list using given 
+* coordinate and block type
 */
 // Method to add a new node at the start of the list
 void LinkedBlocks::prepend(mcpp::Coordinate coord, mcpp::BlockType block){
     BlockNode* newNode = new BlockNode(coord, block);
-    newNode->next = head; // New node points to head
-    head = newNode;       // stored head pointer points to the new start of list (head))
+    // New node points to head
+    newNode->next = head; 
+    // stored head pointer points to the new start of list (head))
+    head = newNode;       
 }
 
 /*
@@ -77,8 +81,10 @@ void LinkedBlocks::prepend(mcpp::Coordinate coord, mcpp::BlockType block){
 */
 // Method to add a given node at the start of the list
 void LinkedBlocks::prepend(BlockNode &newNode){
-    newNode.next = head; // New node points to head
-    head = &newNode;     // stored head pointer points to the new start of list (head))
+    // New node points to head
+    newNode.next = head; 
+    // stored head pointer points to the new start of list (head))
+    head = &newNode;     
 }
 
 /*
@@ -92,7 +98,8 @@ void LinkedBlocks::prepend(BlockNode &newNode){
 void LinkedBlocks::print() const {
     BlockNode* tempNode = head;
     while (tempNode) {
-        std::cout << "Coordinate: " << tempNode->coord << ", BlockType: " << tempNode->block << std::endl;
+        std::cout << "Coordinate: " << tempNode->coord << ", BlockType: "
+                  << tempNode->block << std::endl;
         tempNode = tempNode->next;
     }
 }

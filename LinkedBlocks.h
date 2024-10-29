@@ -1,3 +1,6 @@
+#ifndef LINKEDBLOCKS
+#define LINKEDBLOCKS
+
 #include <mcpp/mcpp.h>
 #include "BlockNode.h"
 
@@ -18,7 +21,8 @@ public:
     * Pre-conditions:
     * - a valid coordinate and blockType is passed to the method
     * Post-conditions:
-    * - a new node is created and placed at the end of the list using the given coordinate and block type
+    * - a new node is created and placed at the end of the list using the given 
+    * coordinate and block type
     */
     // Method to add new node to end of the list
     void append(mcpp::Coordinate coord, mcpp::BlockType block);
@@ -38,7 +42,8 @@ public:
     * Pre-conditions:
     * - a valid coordinate and blockType is passed to the method
     * Post-conditions:
-    * - a new node is created and placed at the start of the list using given coordinate and block type
+    * - a new node is created and placed at the start of the list using given 
+    * coordinate and block type
     */
     // Method to add a new node at the start of the list
     void prepend(mcpp::Coordinate coord, mcpp::BlockType block);
@@ -81,3 +86,5 @@ public:
     // Destructor to free the allocated memory
     ~LinkedBlocks();
 };
+
+#endif

@@ -3,37 +3,55 @@
 #include <mcpp/mcpp.h>
 #include <cctype>
 
-// TODO sperate into .h and .cpp files
+
 
 
 void readMazeSize(int& mazeLength, int& mazeWidth){
     
-    std::cout << "Enter the size of the rectangular Environment (H, W): " << std::endl;
+    std::cout << "Enter the length and width of maze: " << std::endl;
     std::cin >> mazeLength;
     std::cin >> mazeWidth;
     //Length and Width > 0
     //Checking if Length and Width are valid
     if (mazeLength <= 0 || mazeWidth <= 0) {
-        throw std::invalid_argument("Length or width argument is incorrect!");
+        throw std::invalid_argument("Length or width argument is " 
+                "incorrect (should be positive odd numbers)!");
+    }
+    if (mazeLength % 2 == 0 || mazeWidth % 2 == 0) {
+        throw std::invalid_argument("Length or width argument " 
+        "is incorrect (should be odd numbers)!");
     }
 
 }
 
-void readMazeStart(mcpp::Coordinate** start){
+void readMazeStart(mcpp::Coordinate** start, bool mode){
     //Checking if start is nullptr
     if (start == nullptr){
         throw std::invalid_argument("The pointer must not be null!");
     }
 
-    int x=0;
-    int y=0;
-    int z=0;
-    std::cout << "Enter the start coordinate of rectangular Environment (X, Y, Z): " << std::endl;
-    std::cin >> x;
-    std::cin >> y;
-    std::cin >> z;
+    mcpp::MinecraftConnection mc;
 
-    *start = new mcpp::Coordinate(x, y, z);
+    
+    
+    std::string input;
+    std::cout << "In Minecraft, navigate to where you need the maze to be built"
+                  " in Minecraft and type - done:\n";
+    while (input != "done"){
+        std::cin >> input;
+    }
+
+    if (mode == 1){
+        mc.setPlayerPosition(mcpp::Coordinate(4848, 71, 4369));
+    }
+
+    mcpp::Coordinate playerPos = mc.getPlayerPosition();
+
+    *start = new mcpp::Coordinate(playerPos.x, 
+                                  mc.getHeight(playerPos.x, playerPos.z) + 1,
+                                  playerPos.z);
+
+    
 }
 
 
@@ -45,33 +63,81 @@ void readMazeStdin(char** MazeStruct, int length, int width){
 
     //Checking the outer char 2D array is not a nullptr
     if (MazeStruct == nullptr){
-        throw std::invalid_argument("MazeStruct outer pointer must not be null!");
+        throw std::invalid_argument(
+                        "MazeStruct outer pointer must not be null!");
     }
 
-    for (int row = 0; row < length; row++){
+    for (int row = 0; row < width; row++){ 
         //Checking that the inner part is not null.
         if (MazeStruct[row] == nullptr){
-            throw std::invalid_argument("MazeStruct inner pointer must not be null!");
+            throw std::invalid_argument(
+                        "MazeStruct inner pointer must not be null!");
         }
-        for (int col = 0; col < width; col++){
+        for (int col = 0; col < length; col++){
             if(std::cin.good()){
                 std::cin >> readC;
                 readC = tolower(readC);
                 //Error checking for if the user entered 'x' or '.'
                 if (readC != 'x' && readC != '.') {
-                    throw std::invalid_argument("Must type 'x' (or 'X') for solid block, or '.' for gap");
+                    throw std::invalid_argument("Must type 'x' (or 'X')" 
+                                    " for solid block, or '.' for gap");
                 }
 
                 MazeStruct[row][col] = readC;
                 ++charsRead;
             }
         }
-        
     }
+        // Now check if exits are correct
+        int exitsCount = 0;
+
+        // Iterate the length
+        for (int j = 0; j < length - 1; ++j) {
+            if (MazeStruct[0][j] == '.'){
+                ++exitsCount;
+            }
+        }
+        
+        // Iterate the width 
+        for (int i = 0; i < width - 1; ++i) {
+            if (MazeStruct[i][length - 1] == '.'){
+                ++exitsCount;
+            }
+            
+        }
+        
+        // Iterate the length at the end
+        if (width > 1) {
+            for (int j = length - 1; j >= 1; --j) {
+                if (MazeStruct[width - 1][j] == '.'){
+                    ++exitsCount;
+                }
+            }
+        }
+        
+        // Iterate the width at the end
+        if (length > 1) {
+            for (int i = width - 1; i >= 1; --i) {
+                if (MazeStruct[i][0] == '.'){
+                    ++exitsCount;
+                }
+            }
+        }
+
+        if (exitsCount != 1 || 
+                MazeStruct[0][0] == '.' ||
+                MazeStruct[0][length - 1] == '.' ||
+                MazeStruct[width - 1][0] == '.' ||
+                MazeStruct[width - 1][length - 1] == '.'){
+            throw std::invalid_argument(
+                "Make sure you have exactly one exit (not corners)");
+        }
+    
 
     //Error checking that charsRead matches the length * width formula
     if (charsRead != (length * width)) {
-        throw std::invalid_argument("Height or width does not match user input");
+        throw std::invalid_argument(
+                            "Height or width does not match user input");
     }
     
 }
