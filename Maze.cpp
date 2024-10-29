@@ -144,7 +144,7 @@ void Maze::buildMaze(){
                 
         for(int w =0; w < this->getWidth(); w++){
             for(int l = 0; l < this->getLength(); l++){ 
-                if((this->getMazeStructure())[w][l] == 'x'){
+                if(tolower(this->getMazeStructure()[w][l]) == 'x'){
                     for (int i = 1; i <= HEIGHT; ++i){
                         std::this_thread::sleep_for(
                                                 std::chrono::milliseconds(50));
@@ -629,7 +629,7 @@ const void Maze::printMaze(mcpp::Coordinate* startCoord) {
         }
         
         for (int l = 0; l < length; ++l) {
-            std::cout << mazeStructure[w][l];
+            std::cout << static_cast<char>(tolower(mazeStructure[w][l]));
         }
         std::cout << std::endl;
     }

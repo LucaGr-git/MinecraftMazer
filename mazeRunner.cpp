@@ -13,6 +13,7 @@
 
 #include "Utils.h"
 
+#include "mazeGenerator.h"
 
 #define NORMAL_MODE 0
 #define TESTING_MODE 1
@@ -98,16 +99,112 @@ int main(int argc, char** argv){
                 std::cin >> inputChar;
 
                 if (inputChar == '2'){
-                    // TODO complete menu portion
-                    std::cout << 
-                        "TODO : You pressed 1: this hasn't been developed yet";
+                    try {
+                        // TODO complete menu portion
+                        srand(std::time(0));
+                        std::cout << "before start" << std::endl;
+                        readMazeStart(start, false);
+                        std::cout << "after start" << std::endl;
+
+                           
+                        //Read the width and width of maze (from user input)
+                        int rows = 0;
+                        int cols = 0;
+
+                        //height = 7 cols = 5                    
+                        readMazeSize(cols, rows);
+
+                        maze.setLength(cols);
+                        maze.setWidth(rows);
+
+                        
+
+                        // Read the structure of the maze
+                        char** mazeStructure;
+                        mazeStructure = new char*[rows];
+                        for(int i =0; i < rows; i++){
+                            mazeStructure[i] = new char[cols]; //becareful
+                        }
+
+                        //initialize maze size with walls and empty odd cells
+                        unsigned int spawnRow = 0;
+                        unsigned int spawnCol = 0;
+                        
+                        std::vector<std::vector<int>> visitedCells(rows, 
+                                                std::vector<int>(cols, 0));
+
+                        bool randomGenerate;
+                        //normal mode
+                        if (!mode) {
+                            initializeMaze(mazeStructure, rows, cols);
+        
+                            //get random spawn location
+                            initializeRandomSpawnPoint(rows, cols, spawnRow, 
+                                                                    spawnCol);
+                            //set random spawn location to '?'
+                        
+                            // maze[spawnRow][spawnCol] = '?';
+                            // std::cout << "startin" << spawnRow << " col" << 
+                            //spawnCol << std::endl;
+                            randomGenerate = true;
+                            
+                            unsigned int exitRow = spawnRow;
+                            unsigned int exitCol = spawnCol;
+                            
+                            initializeExitPoint(rows, cols, exitRow, exitCol);
+                            // std::cout << "error: " << exitRow << " " 
+                            //<< exitRow << std::endl;
+                            mazeStructure[exitRow][exitCol] = '.';
+                            
+                            unsigned int currRows = spawnRow;
+                            unsigned int currCols = spawnCol;
+                            
+                            generatePath(visitedCells, rows, cols, currRows, 
+                                    currCols, mazeStructure, randomGenerate);
+                        }
+                        //test mode
+                        else {
+                            initializeMaze(mazeStructure, rows, cols);
+                            unsigned int spawnRow = 1;
+                            unsigned int spawnCol = 1;
+                            mazeStructure[1][0] = '.';
+                                // std::cout << "error: " << exitRow << " " 
+                                //<< exitRow << std::endl;
+                            randomGenerate = false;
+                            unsigned int currRows = spawnRow;
+                            unsigned int currCols = spawnCol;
+                            generatePath(visitedCells, rows, cols, currRows, 
+                                currCols, mazeStructure, randomGenerate);
+                        }
+
+                        maze.setMazeStructure(mazeStructure);
+
+                        std::cout << "Initialize empty maze successfully\n";
+
+
+                        // for (int i =0)
+                        maze.printMaze(start);
+
+                    }    
+                    catch (std::invalid_argument const& e){
+                        std::cout << "An error occured: " << e.what() << "\n";
+                    }
+                    catch (std::exception const& e){
+                        std::cout << "An error occured: " << e.what() << "\n";
+                        
+                    }    
+                    
+                    
+                    // flush input because input may have been incorrect
+                    std::cin.clear();
+                    fflush(stdin);
 
                 }
                 else if (inputChar == '1'){
                     try {
                         // Read the start coordinate
-                        start = nullptr;
-                        readMazeStart(&start, mode);
+                    
+                        readMazeStart(start, mode);
 
                         //Read the width and width of maze (from user input)
                         int mazeLength = 0;
