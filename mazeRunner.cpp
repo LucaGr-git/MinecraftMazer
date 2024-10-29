@@ -238,19 +238,28 @@ int main(int argc, char** argv){
                 
                 // Solve manually menu function
                 if (inputChar == '1'){
-                    // todo make sure maze must be built before solving
-                    maze.findMazeGaps();
-                    MazeCoordinate randCoord = player.getRandomCoord(&maze);
-                    player.teleportPlayer(*(maze.getStart()) + mcpp::Coordinate(randCoord.getLengthCoord(), ABOVE_GROUND_HEIGHT, randCoord.getWidthCoord()));
+                    if (hasBuilt){
+                        maze.findMazeGaps();
+                        MazeCoordinate randCoord = player.getRandomCoord(&maze);
+                        player.teleportPlayer(*(maze.getStart()) + mcpp::Coordinate(randCoord.getLengthCoord(), ABOVE_GROUND_HEIGHT, randCoord.getWidthCoord()));
+                    }
+                    else{
+                        std::cout << "You must build a maze before solving.\n";
+                    }
                     
 
                 }
                 // Show escape route function
                 else if (inputChar == '2'){
-                    // todo make sure maze must be built before solving
-                    //Check if the player is within the maze
-                    player.setPlayerCoord(mc.getPlayerPosition());
-                    player.solveMaze();
+                    if (hasBuilt){
+
+                        //Check if the player is within the maze
+                        player.setPlayerCoord(mc.getPlayerPosition());
+                        player.solveMaze();
+                    }
+                    else{
+                        std::cout << "You must build a maze before solving.\n";
+                    }
 
 
                 }
