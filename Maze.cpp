@@ -1,5 +1,7 @@
 #include "Maze.h"
 
+#define MS_DELAY 50
+//#define MS_DELAY 0
 
 Maze::Maze()
 {
@@ -147,7 +149,7 @@ void Maze::buildMaze(){
                 if(tolower(this->getMazeStructure()[w][l]) == 'x'){
                     for (int i = 1; i <= HEIGHT; ++i){
                         std::this_thread::sleep_for(
-                                                std::chrono::milliseconds(50));
+                                        std::chrono::milliseconds(MS_DELAY));
                         mc.setBlock(*(this->getStart()) + 
                                     mcpp::Coordinate(l, i, w), 
                                     mcpp::Blocks::ACACIA_WOOD_PLANK);
@@ -194,31 +196,57 @@ mcpp::HeightMap Maze::getHeightMaze(){
 mcpp::HeightMap Maze::getHeightMaze(LinkedBlocks& blockList){
     //Sets up MinecraftConnection object
     mcpp::MinecraftConnection mc;
+
+    mcpp::HeightMap heights = mc.getHeights(*(this->getStart()), 
+                            (mcpp::Coordinate(
+                                this->getStart()->x + this->getLength() - 1,
+                                this->getStart()->y, 
+                                this->getStart()->z + this->getWidth() -1)));
+
     // delete maze area
     for(int w =0; w < this->getWidth(); w++){
         for(int l = 0; l < this->getLength(); l++){
-            for (int i = 1; i <= HEIGHT; ++i){
-                mcpp::BlockType currMazeBlock;
-                mcpp::BlockType currWorldBlock;
-                // get what the supposed block will be based on maze generation
-                if (mazeStructure[w][l] == '.'){ 
-                    currMazeBlock = mcpp::Blocks::AIR;
+            mcpp::BlockType currMazeBlock;
+            mcpp::BlockType currWorldBlock;
+
+            // difference in height between actual height and top of maze
+            int diffHeight =  start->y + HEIGHT - heights.get(l, w);
+
+            if (diffHeight > HEIGHT) {
+                diffHeight = HEIGHT;
+            }
+
+            // get what the supposed block will be based on maze generation
+            if (mazeStructure[w][l] == '.'){ 
+                currMazeBlock = mcpp::Blocks::AIR;
+            }
+            else {
+                currMazeBlock = mcpp::Blocks::ACACIA_WOOD_PLANK;
+
+                // add all air blocks found through diffHeight onto list
+                for (int i = HEIGHT; i > HEIGHT - diffHeight; --i){
+                    blockList.prepend(*(this->getStart()) + 
+                                      mcpp::Coordinate(l, i, w), 
+                                      mcpp::Blocks::AIR);
+                
                 }
-                else {
-                    currMazeBlock = mcpp::Blocks::ACACIA_WOOD_PLANK;
-                }
+            }
+
+        
+            for (int i = HEIGHT - diffHeight; i >= 1; --i){
                 currWorldBlock = mc.getBlock(*(this->getStart()) + 
-                                             mcpp::Coordinate(l, i, w));
+                                            mcpp::Coordinate(l, i, w));
 
                 // store this block based on if it needs to be replaced
                 if (currWorldBlock != currMazeBlock){
                     blockList.prepend(*(this->getStart()) + 
-                                      mcpp::Coordinate(l, i, w), 
-                                      currWorldBlock);
+                                    mcpp::Coordinate(l, i, w), 
+                                    currWorldBlock);
                 }
                 if (currWorldBlock != mcpp::Blocks::AIR){
                     // clear the maze blocks
-                    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+                    std::this_thread::sleep_for(
+                                        std::chrono::milliseconds(MS_DELAY));
                     mc.setBlock(*(this->getStart()) + mcpp::Coordinate(l, i, w),
                                 mcpp::Blocks::AIR);
                 }
@@ -226,10 +254,11 @@ mcpp::HeightMap Maze::getHeightMaze(LinkedBlocks& blockList){
 
                 
             }
+            
         }
     }
     //heights is equal to the maze.getStart value, to length and width
-    mcpp::HeightMap heights = mc.getHeights(*(this->getStart()), 
+    heights = mc.getHeights(*(this->getStart()), 
                             (mcpp::Coordinate(
                                 this->getStart()->x + this->getLength() - 1,
                                 this->getStart()->y, 
@@ -274,7 +303,8 @@ void Maze::buildUpTerrain(mcpp::HeightMap& worldHeight, int ** difference) {
                 for (int m = 1; m <= difference[i][k]; m++) {
                     //Will set the block at that coordinate to the previous type
                     //Will go up by 1 in the positive y-direction incrementally
-                    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+                    std::this_thread::sleep_for(
+                                        std::chrono::milliseconds(MS_DELAY));
                     mc.setBlock(mcpp::Coordinate(this->getStart()->x + i,
                                 worldHeight.get(i, k) + m, 
                                 this->getStart()->z + k),
@@ -325,7 +355,7 @@ void Maze::buildDownTerrain(mcpp::HeightMap& worldHeight, int **  difference,
                     if (currBlock != airBlock){
                         blockList.prepend(currCoord, currBlock);
                         std::this_thread::sleep_for(
-                            std::chrono::milliseconds(50));
+                            std::chrono::milliseconds(MS_DELAY));
                         mc.setBlock(currCoord, airBlock);
                     }
                 }
@@ -455,7 +485,7 @@ void Maze::placeBlueCarpet(LinkedBlocks& blockList){
     for (mcpp::Coordinate curCoord: carpetCoords){
         // store and set the carpet block to air
         blockList.prepend(curCoord, mc.getBlock(curCoord));
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        std::this_thread::sleep_for(std::chrono::milliseconds(MS_DELAY));
         mc.setBlock(curCoord, mcpp::Blocks::AIR);
         
 
@@ -482,7 +512,8 @@ void Maze::placeBlueCarpet(LinkedBlocks& blockList){
                                                     startBlock.y - m, 
                                                     startBlock.z), 
                                         currBlock);
-                    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+                    std::this_thread::sleep_for(
+                                        std::chrono::milliseconds(MS_DELAY));
                     mc.setBlock((mcpp::Coordinate(
                                             startBlock.x, 
                                             startBlock.y - m,
@@ -516,14 +547,15 @@ void Maze::placeBlueCarpet(LinkedBlocks& blockList){
                                                     startBlock.z), 
                                     currBlock);
 
-                std::this_thread::sleep_for(std::chrono::milliseconds(50));
+                std::this_thread::sleep_for(
+                                        std::chrono::milliseconds(MS_DELAY));
                 mc.setBlock((mcpp::Coordinate(startBlock.x, height + m,
                                                 startBlock.z)), blockToPlace);
                 
             }
         }
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        std::this_thread::sleep_for(std::chrono::milliseconds(MS_DELAY));
         mc.setBlock(curCoord, mcpp::Blocks::BLUE_CARPET);
 
     }   
@@ -544,7 +576,7 @@ void Maze::revertMazeBuild(LinkedBlocks& blockList){
     // iterate through linked list
     while (tempNode) {
         // set block in node
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        std::this_thread::sleep_for(std::chrono::milliseconds(MS_DELAY));
         mc.setBlock(tempNode->coord, tempNode->block);
         // iterate to next node
         tempNode = tempNode->next;
@@ -583,7 +615,8 @@ const void Maze::revertBuildUpTerrain(int **  difference, int logicalX,
                             this->getStart()->y, 
                             this->getStart()->z + k);
                 for (int m = 0; m < difference[i][k]; m++) {
-                    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+                    std::this_thread::sleep_for(
+                                        std::chrono::milliseconds(MS_DELAY));
                     mc.setBlock(mcpp::Coordinate(
                                     this->getStart()->x + i, 
                                     startBlock.y - m, 

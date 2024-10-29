@@ -17,7 +17,7 @@
 
 #define NORMAL_MODE 0
 #define TESTING_MODE 1
-const int ABOVE_GROUND_HEIGHT = 1;
+#define ABOVE_GROUND_HEIGHT  1
 
 enum States{
     ST_Main,
@@ -286,7 +286,8 @@ int main(int argc, char** argv){
 
                 // Create a HeightMap variable, and call the function to get the
                 //  heights of all blocks within the maze coordinates
-                mcpp::HeightMap worldHeight = maze.getHeightMaze(blockList);
+
+                mcpp::HeightMap worldHeight = maze.getHeightMaze();
 
                 difference = maze.compareHeights(worldHeight, 
                                                  logicalX, 
@@ -297,7 +298,8 @@ int main(int argc, char** argv){
                 maze.buildDownTerrain(worldHeight, difference, blockList);
 
                 //Then call GetHeightMaze again to generate a new heightmap
-                worldHeight = maze.getHeightMaze();
+
+                worldHeight = maze.getHeightMaze(blockList);
                 
                 // Delete difference array 
 
@@ -306,15 +308,18 @@ int main(int argc, char** argv){
                 }
                 delete [] difference;
 
+
                 //Similarly call difference again, to get the new difference
                 difference = maze.compareHeights(worldHeight, 
                                                  logicalX, 
                                                  logicalZ);
 
+
                 //Call the Build up Terrain function
                 maze.buildUpTerrain(worldHeight, difference);
                 //Construct the environment
-                maze.buildMaze();
+            
+                maze.buildMaze(); 
                 // place carpet
                 maze.placeBlueCarpet(blockList);
                 
@@ -337,7 +342,10 @@ int main(int argc, char** argv){
                     if (hasBuilt){
                         maze.findMazeGaps();
                         MazeCoordinate randCoord = player.getRandomCoord(&maze);
-                        player.teleportPlayer(*(maze.getStart()) + mcpp::Coordinate(randCoord.getWidthCoord(), ABOVE_GROUND_HEIGHT, randCoord.getLengthCoord()));
+                        player.teleportPlayer(*(maze.getStart()) 
+                            + mcpp::Coordinate(randCoord.getWidthCoord(), 
+                            ABOVE_GROUND_HEIGHT, 
+                            randCoord.getLengthCoord()));
                     }
                     else{
                         std::cout << "You must build a maze before solving.\n";
