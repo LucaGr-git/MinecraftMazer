@@ -241,7 +241,7 @@ int main(int argc, char** argv){
                     if (hasBuilt){
                         maze.findMazeGaps();
                         MazeCoordinate randCoord = player.getRandomCoord(&maze);
-                        player.teleportPlayer(*(maze.getStart()) + mcpp::Coordinate(randCoord.getLengthCoord(), ABOVE_GROUND_HEIGHT, randCoord.getWidthCoord()));
+                        player.teleportPlayer(*(maze.getStart()) + mcpp::Coordinate(randCoord.getWidthCoord(), ABOVE_GROUND_HEIGHT, randCoord.getLengthCoord()));
                     }
                     else{
                         std::cout << "You must build a maze before solving.\n";
