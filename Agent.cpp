@@ -92,7 +92,7 @@ void Agent::solveMaze(){
     bool foundBlueCarpet = false;
     int numberOfSteps = 1;
     //Every coordinate moved needs to be printed
-    mc.setBlock(currentLoc, mcpp::Blocks::GREEN_CARPET);
+    mc.setBlock(currentLoc, mcpp::Blocks::LIME_CARPET);
     std::cout << "Step[" << numberOfSteps << "]: " << currentLoc << std::endl;
     // Checking if the intitial direction was a random choice
     if (randomDirectionChosen != true) {
@@ -117,7 +117,7 @@ void Agent::solveMaze(){
                             foundBlueCarpet = true;
                         }
                         //Set block to carpet
-                        mc.setBlock(currentLoc, mcpp::Blocks::GREEN_CARPET);
+                        mc.setBlock(currentLoc, mcpp::Blocks::LIME_CARPET);
 
                         //Print each movement in the terminal
                         std::cout << "Step[" << numberOfSteps << "]: "
@@ -155,7 +155,7 @@ void Agent::solveMaze(){
                         foundBlueCarpet = true;
                     }
                     //Set block to carpet
-                    mc.setBlock(currentLoc, mcpp::Blocks::GREEN_CARPET);
+                    mc.setBlock(currentLoc, mcpp::Blocks::LIME_CARPET);
                             
                     //Print each movement in the terminal
                     std::cout << "Step[" << numberOfSteps << "]: " << currentLoc
@@ -183,7 +183,7 @@ void Agent::solveMaze(){
                             foundBlueCarpet = true;
                         }
                         //Set block to carpet
-                        mc.setBlock(currentLoc, mcpp::Blocks::GREEN_CARPET);
+                        mc.setBlock(currentLoc, mcpp::Blocks::LIME_CARPET);
 
                         //Print each movement in the terminal
                         std::cout << "Step[" << numberOfSteps << "]: " 
@@ -221,7 +221,7 @@ void Agent::solveMaze(){
                     }
 
                     //Set block to carpet
-                    mc.setBlock(currentLoc, mcpp::Blocks::GREEN_CARPET);
+                    mc.setBlock(currentLoc, mcpp::Blocks::LIME_CARPET);
                     
                
                     //Print each movement in the terminal
@@ -254,7 +254,7 @@ void Agent::solveMaze(){
                         }
 
                         //Set block to carpet
-                        mc.setBlock(currentLoc, mcpp::Blocks::GREEN_CARPET);
+                        mc.setBlock(currentLoc, mcpp::Blocks::LIME_CARPET);
 
 
                         //Print each movement in the terminal
@@ -297,7 +297,7 @@ void Agent::solveMaze(){
                     }
 
                     //Set block to carpet
-                    mc.setBlock(currentLoc, mcpp::Blocks::GREEN_CARPET);
+                    mc.setBlock(currentLoc, mcpp::Blocks::LIME_CARPET);
                             
                     //Print each movement in the terminal
                     std::cout << "Step[" << numberOfSteps << "]: " << currentLoc 
@@ -332,7 +332,7 @@ void Agent::solveMaze(){
                         }
 
                         //Set block to carpet
-                        mc.setBlock(currentLoc, mcpp::Blocks::GREEN_CARPET);
+                        mc.setBlock(currentLoc, mcpp::Blocks::LIME_CARPET);
 
 
                         //Print each movement in the terminal
@@ -372,7 +372,7 @@ void Agent::solveMaze(){
                     }
 
                     //Set block to carpet
-                    mc.setBlock(currentLoc, mcpp::Blocks::GREEN_CARPET);
+                    mc.setBlock(currentLoc, mcpp::Blocks::LIME_CARPET);
 
                             
                     //Print each movement in the terminal
