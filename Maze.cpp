@@ -454,9 +454,7 @@ void Maze::placeBlueCarpet(LinkedBlocks& blockList){
     
     for (mcpp::Coordinate curCoord: carpetCoords){
         // store and set the carpet block to air
-        if (mc.getBlock(curCoord) != mcpp::Blocks::BLUE_CARPET){
-            blockList.prepend(curCoord, mc.getBlock(curCoord));
-        }
+        blockList.prepend(curCoord, mc.getBlock(curCoord));
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
         mc.setBlock(curCoord, mcpp::Blocks::AIR);
         
