@@ -4,6 +4,10 @@
 #include <cctype>
 
 
+void flushStdin(){
+    int currChar;
+    while((currChar = getchar() != '\n') && (currChar != EOF));
+}
 
 
 void readMazeSize(int& mazeLength, int& mazeWidth){

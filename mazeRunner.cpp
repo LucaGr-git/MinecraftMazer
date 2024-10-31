@@ -27,6 +27,7 @@ enum States{
     ST_Exit
 };
 
+
 int main(int argc, char** argv){
 
     bool mode = NORMAL_MODE;
@@ -193,13 +194,10 @@ int main(int argc, char** argv){
                     }
                     catch (std::exception const& e){
                         std::cout << "An error occured: " << e.what() << "\n";
-                        
                     }    
+
+                    flushStdin();
                     
-                    
-                    // flush input because input may have been incorrect
-                    std::cin.clear();
-                    fflush(stdin);
 
                 }
                 else if (inputChar == '1'){
@@ -239,12 +237,10 @@ int main(int argc, char** argv){
                     }
                     catch (std::exception const& e){
                         std::cout << "An error occured: " << e.what() << "\n";
-                        
                     }
 
                     // flush input because input may have been incorrect
-                    std::cin.clear();
-                    fflush(stdin);
+                    flushStdin();
                     
 
                 }
@@ -254,6 +250,9 @@ int main(int argc, char** argv){
                 else {
                     std::cout << 
                         "Input Error: Enter a number between 1 and 3 ....\n";
+
+                    // flush input because input may have been incorrect
+                    flushStdin();
                 }
             }
         }
@@ -385,6 +384,8 @@ int main(int argc, char** argv){
                 else{
                     std::cout << 
                         "Input Error: Enter a number between 1 and 3 ....\n";
+                    // flush input because input may have been incorrect
+                    flushStdin();
                 }
             }
         }
@@ -397,6 +398,8 @@ int main(int argc, char** argv){
 
         else{
             std::cout << "Input Error: Enter a number between 1 and 5 ...."; 
+            // flush input because input may have been incorrect
+            flushStdin();
         }
 
         
