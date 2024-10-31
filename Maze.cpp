@@ -132,6 +132,28 @@ void Maze::findMazeGaps(){
     }
 }
 
+/** Conditions:
+ *  Pre-Conditions: Maze has to be correctly initialised with its values
+ *  Post-Conditions: returns an integer of the index that has the maximum dist
+ *  value, which is the furthest point from the start coord.
+ * 
+ */
+int Maze::findClosestGapDist() {
+    double distanceMax = 0;
+    int indexClosest = 0;
+    for (unsigned int i = 0; i < mazeGaps.size(); i++) {
+        double distForm = sqrt(pow(mazeGaps.at(i).getWidthCoord(), 2)+pow(mazeGaps.at(i).getLengthCoord(), 2));
+
+        if (distForm > distanceMax) {
+            distanceMax = distForm;
+            indexClosest = i;
+        }
+    }
+
+    return indexClosest;
+}
+
+
 /*
 * Builds the maze at the start coordinate based on the maze structure given
 *

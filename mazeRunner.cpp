@@ -376,11 +376,10 @@ int main(int argc, char** argv){
                                 randCoord.getLengthCoord()));
                         }
                         else {
+                            maze.findClosestGapDist();
                             player.teleportPlayer(*(maze.getStart()) +
-                            mcpp::Coordinate(maze.mazeGaps.at(
-                                maze.mazeGaps.size() - 1).getWidthCoord(),
-                            ABOVE_GROUND_HEIGHT, maze.mazeGaps.at(
-                                maze.mazeGaps.size() - 1).getLengthCoord()));
+                            mcpp::Coordinate(maze.mazeGaps.at(maze.findClosestGapDist()).getWidthCoord(),
+                            ABOVE_GROUND_HEIGHT, maze.mazeGaps.at(maze.findClosestGapDist()).getLengthCoord()));
                         }        
                     }
                     else{

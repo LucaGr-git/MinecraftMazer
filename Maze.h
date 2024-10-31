@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <thread>
 #include <chrono>
+#include <cmath>
 
 
  
@@ -178,6 +179,8 @@ public:
     *  - This Method will print details about the maze
     */
     const void printMaze(mcpp::Coordinate startCoord);
+
+    int findClosestGapDist();
     
 private:
     /* data */

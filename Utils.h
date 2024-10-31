@@ -8,6 +8,7 @@
 void readMazeSize(int& mazeLength, int& mazeWidth){
     mazeLength = 2; 
     mazeWidth = 2;
+    std::cout << "Enter the length and width of maze: " << std::endl;
     while (mazeLength % 2 == 0 ||  mazeWidth % 2 == 0 ) {
         
 
