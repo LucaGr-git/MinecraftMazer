@@ -1,0 +1,104 @@
+
+Welcome to MineCraft MazeRunner!
+--------------------------------
+
+------------- MAIN MENU -------------
+1) Generate Maze
+2) Build Maze in MineCraft
+3) Solve Maze
+4) Show Team Information
+5) Exit
+
+Enter Menu item to continue: 
+
+------------- GENERATE MAZE -------------
+1) Read Maze from terminal
+2) Generate Random Maze
+3) Back
+
+Enter Menu item to continue: 
+In Minecraft, navigate to where you need the maze to be built in Minecraft and type - done:
+Enter the length and width of maze: 
+Enter the maze structure: 
+Maze read successfully
+**Printing Maze**
+BasePoint: (4848, -39, 4369)
+Structure:
+x.xxx
+x.x.x
+x.x.x
+x.x.x
+x.x.x
+x...x
+xxxxx
+**End Printing Maze**
+
+------------- MAIN MENU -------------
+1) Generate Maze
+2) Build Maze in MineCraft
+3) Solve Maze
+4) Show Team Information
+5) Exit
+
+Enter Menu item to continue: 
+
+------------- MAIN MENU -------------
+1) Generate Maze
+2) Build Maze in MineCraft
+3) Solve Maze
+4) Show Team Information
+5) Exit
+
+Enter Menu item to continue: 
+
+------------- SOLVE MAZE -------------
+1) Solve Manually
+2) Show Escape Route
+3) Back
+
+Enter Menu item to continue: 
+
+------------- MAIN MENU -------------
+1) Generate Maze
+2) Build Maze in MineCraft
+3) Solve Maze
+4) Show Team Information
+5) Exit
+
+Enter Menu item to continue: 
+
+------------- SOLVE MAZE -------------
+1) Solve Manually
+2) Show Escape Route
+3) Back
+
+Enter Menu item to continue: 
+Step[1]: (4851,-39,4374)
+Step[2]: (4851,-39,4373)
+Step[3]: (4851,-39,4372)
+Step[4]: (4851,-39,4371)
+Step[5]: (4851,-39,4370)
+Step[6]: (4851,-39,4371)
+Step[7]: (4851,-39,4372)
+Step[8]: (4851,-39,4373)
+Step[9]: (4851,-39,4374)
+Step[10]: (4850,-39,4374)
+Step[11]: (4849,-39,4374)
+Step[12]: (4849,-39,4373)
+Step[13]: (4849,-39,4372)
+Step[14]: (4849,-39,4371)
+Step[15]: (4849,-39,4370)
+Step[16]: (4849,-39,4369)
+Step[17]: (4849,-39,4368)
+
+------------- MAIN MENU -------------
+1) Generate Maze
+2) Build Maze in MineCraft
+3) Solve Maze
+4) Show Team Information
+5) Exit
+
+Enter Menu item to continue: 
+
+The End!
+
