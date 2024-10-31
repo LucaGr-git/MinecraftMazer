@@ -125,7 +125,7 @@ void Maze::findMazeGaps(){
     for (int i = 0; i < this->getWidth(); i++) { 
         for (int k = 0; k < this->getLength(); k++) {
             if (this->mazeStructure[i][k] == '.'){
-                MazeCoordinate tempCoord(i+1, k+1);
+                MazeCoordinate tempCoord(i, k);
                 mazeGaps.push_back(tempCoord);
             }
         }
