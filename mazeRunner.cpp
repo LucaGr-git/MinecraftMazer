@@ -346,11 +346,18 @@ int main(int argc, char** argv){
                 if (inputChar == '1'){
                     if (hasBuilt){
                         maze.findMazeGaps();
-                        MazeCoordinate randCoord = player.getRandomCoord(&maze);
-                        player.teleportPlayer(*(maze.getStart()) 
-                            + mcpp::Coordinate(randCoord.getWidthCoord(), 
-                            ABOVE_GROUND_HEIGHT, 
-                            randCoord.getLengthCoord()));
+                        if (mode == NORMAL_MODE) {
+                            MazeCoordinate randCoord = player.getRandomCoord(&maze);
+                            player.teleportPlayer(*(maze.getStart()) 
+                                + mcpp::Coordinate(randCoord.getWidthCoord(), 
+                                ABOVE_GROUND_HEIGHT, 
+                                randCoord.getLengthCoord()));
+                        }
+                        else {
+                            player.teleportPlayer(*(maze.getStart()) +
+                            mcpp::Coordinate(maze.mazeGaps.at(maze.mazeGaps.size() - 1).getWidthCoord(),
+                            ABOVE_GROUND_HEIGHT, maze.mazeGaps.at(maze.mazeGaps.size() - 1).getLengthCoord()));
+                        }        
                     }
                     else{
                         std::cout << "You must build a maze before solving.\n";
@@ -364,7 +371,7 @@ int main(int argc, char** argv){
 
                         //Check if the player is within the maze
                         player.setPlayerCoord(mc.getPlayerPosition());
-                        player.solveMaze();
+                        player.solveMaze(mode);
                     }
                     else{
                         std::cout << "You must build a maze before solving.\n";
