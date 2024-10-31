@@ -246,14 +246,12 @@ int main(int argc, char** argv){
                     }
                     catch (std::invalid_argument const& e){
                         std::cout << "An error occured: " << e.what() << "\n";
-                        getline(std::cin, inputLine);
                     }
                     catch (std::exception const& e){
                         std::cout << "An error occured: " << e.what() << "\n";
-                        getline(std::cin, inputLine);
                     }
 
-                    
+                    getline(std::cin, inputLine);
                     
 
                 }

@@ -9,19 +9,22 @@ void readMazeSize(int& mazeLength, int& mazeWidth){
     mazeLength = 2; 
     mazeWidth = 2;
     std::cout << "Enter the length and width of maze: " << std::endl;
-    while (mazeLength % 2 == 0 ||  mazeWidth % 2 == 0 ) {
+    while (mazeLength % 2 == 0 ||  mazeWidth % 2 == 0 
+                || mazeLength < 0 || mazeWidth < 0) {
         
 
         std::cin >> mazeLength;
         std::cin >> mazeWidth;
 
         // Check if the input is valid
-        if (std::cin.fail()) {
+        if (std::cin.fail() || (mazeLength % 2 == 0 ||  mazeWidth % 2 == 0 
+                    || mazeLength < 0 || mazeWidth < 0)) {
             // clear buffer
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-            std::cout << "Invalid input. Please enter two odd integers.\n" << std::endl;
+            std::cout << "Invalid input. Please enter two odd integers.\n" 
+                        << std::endl;
         } else {
             // Clear buffer
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
