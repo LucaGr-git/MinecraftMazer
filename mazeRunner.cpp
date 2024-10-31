@@ -4,6 +4,7 @@
 #include <cstring>
 #include <thread>
 #include <chrono>
+#include <limits>
 
 #include "menuUtils.h"
 #include "Maze.h"
@@ -71,8 +72,12 @@ int main(int argc, char** argv){
         // main menu options are printed
         printMainMenu(); 
 
+        std::string inputLine;
         char inputChar;
-        std::cin >> inputChar;
+        getline(std::cin, inputLine);
+        inputChar = inputLine[0];
+
+      
 
         int intState;
 
@@ -97,7 +102,12 @@ int main(int argc, char** argv){
 
                 printGenerateMazeMenu();
                 
-                std::cin >> inputChar;
+
+                getline(std::cin, inputLine);
+                inputChar = inputLine[0];
+
+                // flush input because input may have been too long
+
 
                 if (inputChar == '2'){
                     try {
@@ -191,12 +201,14 @@ int main(int argc, char** argv){
                     }    
                     catch (std::invalid_argument const& e){
                         std::cout << "An error occured: " << e.what() << "\n";
+                        getline(std::cin, inputLine);
                     }
                     catch (std::exception const& e){
                         std::cout << "An error occured: " << e.what() << "\n";
+                        getline(std::cin, inputLine);
                     }    
 
-                    flushStdin();
+
                     
 
                 }
@@ -234,13 +246,14 @@ int main(int argc, char** argv){
                     }
                     catch (std::invalid_argument const& e){
                         std::cout << "An error occured: " << e.what() << "\n";
+                        getline(std::cin, inputLine);
                     }
                     catch (std::exception const& e){
                         std::cout << "An error occured: " << e.what() << "\n";
+                        getline(std::cin, inputLine);
                     }
 
-                    // flush input because input may have been incorrect
-                    flushStdin();
+                    
                     
 
                 }
@@ -250,10 +263,10 @@ int main(int argc, char** argv){
                 else {
                     std::cout << 
                         "Input Error: Enter a number between 1 and 3 ....\n";
-
-                    // flush input because input may have been incorrect
-                    flushStdin();
                 }
+
+                
+
             }
         }
         else if (curState == ST_GetMaze){
@@ -339,7 +352,11 @@ int main(int argc, char** argv){
 
                 Agent player(mcpp::Coordinate(0, 0, 0));
 
-                std::cin >> inputChar;
+                getline(std::cin, inputLine);
+                inputChar = inputLine[0];
+
+
+
                 if (mode){
                 // delay to allow player to fall down before menu starts
                     std::this_thread::sleep_for(
@@ -395,8 +412,6 @@ int main(int argc, char** argv){
                 else{
                     std::cout << 
                         "Input Error: Enter a number between 1 and 3 ....\n";
-                    // flush input because input may have been incorrect
-                    flushStdin();
                 }
             }
         }
@@ -409,9 +424,8 @@ int main(int argc, char** argv){
 
         else{
             std::cout << "Input Error: Enter a number between 1 and 5 ...."; 
-            // flush input because input may have been incorrect
-            flushStdin();
         }
+
 
         
     }

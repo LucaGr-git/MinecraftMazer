@@ -4,26 +4,27 @@
 #include <cctype>
 
 
-void flushStdin(){
-    int currChar;
-    while((currChar = getchar() != '\n') && (currChar != EOF));
-}
-
 
 void readMazeSize(int& mazeLength, int& mazeWidth){
-    
-    std::cout << "Enter the length and width of maze: " << std::endl;
-    std::cin >> mazeLength;
-    std::cin >> mazeWidth;
-    //Length and Width > 0
-    //Checking if Length and Width are valid
-    if (mazeLength <= 0 || mazeWidth <= 0) {
-        throw std::invalid_argument("Length or width argument is " 
-                "incorrect (should be positive odd numbers)!");
-    }
-    if (mazeLength % 2 == 0 || mazeWidth % 2 == 0) {
-        throw std::invalid_argument("Length or width argument " 
-        "is incorrect (should be odd numbers)!");
+    mazeLength = 2; 
+    mazeWidth = 2;
+    while (mazeLength % 2 == 0 ||  mazeWidth % 2 == 0 ) {
+        
+
+        std::cin >> mazeLength;
+        std::cin >> mazeWidth;
+
+        // Check if the input is valid
+        if (std::cin.fail()) {
+            // clear buffer
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+            std::cout << "Invalid input. Please enter two odd integers.\n" << std::endl;
+        } else {
+            // Clear buffer
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
     }
 
 }
