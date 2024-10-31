@@ -23,57 +23,84 @@ void Agent::teleportPlayer(mcpp::Coordinate location) {
 
 mcpp::Coordinate Agent::getPlayerCoord() { return currentLoc; }
 
-void Agent::initialisePlayerDirection() {
+void Agent::initialisePlayerDirection(bool mode) {
     // Set all moving directions to false
     movingZPos = false;
     movingZNeg = false;
     movingXPos = false;
     movingXNeg = false;
 
-    /* First checking the blocks around the player to check if the wall can be
-     * found
-     */
-    if (mc.getBlock(currentLoc + mcpp::Coordinate(0, 0, 1)) ==
-        mcpp::Blocks::ACACIA_WOOD_PLANK) {
-        // If passed, a wall is present
-        movingXPos = true;
-    } else if (mc.getBlock(currentLoc + mcpp::Coordinate(0, 0, -1)) ==
-               mcpp::Blocks::ACACIA_WOOD_PLANK) {
-        // If passed, a wall is present
-        movingXNeg = true;
-    } else if (mc.getBlock(currentLoc + MOVE_XPLUS) ==
-               mcpp::Blocks::ACACIA_WOOD_PLANK) {
-        movingZNeg = true;
-    } else if (mc.getBlock(currentLoc + mcpp::Coordinate(-1, 0, 0)) ==
-               mcpp::Blocks::ACACIA_WOOD_PLANK) {
-        movingZPos = true;
-    }
-    /* This means that there was no wall found that the player can follow,
-     *  and thus must start walking in a random direction
-     */
-    else {
-        randomDirectionChosen = true;
-
-        // Creates an integer from 0-3 representing the 4 directions the player
-        // can move
-        int randomDirection = rand() % 4;
-
-        if (randomDirection == 0) {
-            movingZPos = true;
-        } else if (randomDirection == 1) {
-            movingZNeg = true;
-        } else if (randomDirection == 2) {
+    // Testing mode function
+    if (mode) {
+        // First checking the positive x axis
+        if (mc.getBlock(currentLoc + MOVE_ZPLUS) ==
+            mcpp::Blocks::ACACIA_WOOD_PLANK) {
             movingXPos = true;
-        } else if (randomDirection == 3) {
+        }
+        // Clockwise, facing Z - pos
+        else if (mc.getBlock(currentLoc + MOVE_XMINUS) ==
+                 mcpp::Blocks::ACACIA_WOOD_PLANK) {
+            movingZPos = true;
+        }
+        // Clockwise, facing X - neg
+        else if (mc.getBlock(currentLoc + MOVE_ZMINUS) ==
+                 mcpp::Blocks::ACACIA_WOOD_PLANK) {
             movingXNeg = true;
+        }
+        // Clockwise, facing Z - neg
+        else if (mc.getBlock(currentLoc + MOVE_XPLUS) ==
+                 mcpp::Blocks::ACACIA_WOOD_PLANK) {
+            movingZNeg = true;
+        }
+
+    }
+    // Normal mode function
+    else {
+        /* First checking the blocks around the player to check if the wall can
+         * be found
+         */
+        if (mc.getBlock(currentLoc + mcpp::Coordinate(0, 0, 1)) ==
+            mcpp::Blocks::ACACIA_WOOD_PLANK) {
+            // If passed, a wall is present
+            movingXPos = true;
+        } else if (mc.getBlock(currentLoc + mcpp::Coordinate(0, 0, -1)) ==
+                   mcpp::Blocks::ACACIA_WOOD_PLANK) {
+            // If passed, a wall is present
+            movingXNeg = true;
+        } else if (mc.getBlock(currentLoc + MOVE_XPLUS) ==
+                   mcpp::Blocks::ACACIA_WOOD_PLANK) {
+            movingZNeg = true;
+        } else if (mc.getBlock(currentLoc + mcpp::Coordinate(-1, 0, 0)) ==
+                   mcpp::Blocks::ACACIA_WOOD_PLANK) {
+            movingZPos = true;
+        }
+        /* This means that there was no wall found that the player can follow,
+         *  and thus must start walking in a random direction
+         */
+        else {
+            randomDirectionChosen = true;
+
+            // Creates an integer from 0-3 representing the 4 directions the
+            // player can move
+            int randomDirection = rand() % 4;
+
+            if (randomDirection == 0) {
+                movingZPos = true;
+            } else if (randomDirection == 1) {
+                movingZNeg = true;
+            } else if (randomDirection == 2) {
+                movingXPos = true;
+            } else if (randomDirection == 3) {
+                movingXNeg = true;
+            }
         }
     }
 }
 
 void Agent::setPlayerCoord(mcpp::Coordinate newLoc) { currentLoc = newLoc; }
 
-void Agent::solveMaze() {
-    initialisePlayerDirection();
+void Agent::solveMaze(bool mode) {
+    initialisePlayerDirection(mode);
     bool foundBlueCarpet = false;
     bool foundWallRand = false;
     int numberOfSteps = 1;
@@ -145,7 +172,6 @@ void Agent::solveMaze() {
                     // Print each movement in the terminal
                     std::cout << "Step[" << numberOfSteps << "]: " << currentLoc
                               << std::endl;
-
 
                     // There is a wall to the right
                     if (mc.getBlock(currentLoc + MOVE_ZPLUS) ==
