@@ -127,8 +127,6 @@ void Maze::findMazeGaps(){
             if (this->mazeStructure[i][k] == '.'){
                 MazeCoordinate tempCoord(i+1, k+1);
                 mazeGaps.push_back(tempCoord);
-                std::cout << tempCoord.getWidthCoord() << " " 
-                          << tempCoord.getLengthCoord() << std::endl; 
             }
         }
     }

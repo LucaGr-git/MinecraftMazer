@@ -10,9 +10,6 @@ MazeCoordinate Agent::getRandomCoord(Maze* maze) {
 
     MazeCoordinate randomCoord = maze->mazeGaps[randomCoordIndex];
 
-    std::cout << randomCoord.getLengthCoord() << " "
-              << randomCoord.getWidthCoord() << std::endl;
-
     return randomCoord;
 }
 
