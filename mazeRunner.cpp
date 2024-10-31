@@ -121,7 +121,7 @@ int main(int argc, char** argv){
                         std::cout << maze.getWidth() << std::endl;
 
                         // Read the structure of the maze
-                        char** mazeStructure;
+                        char** mazeStructure = nullptr;
                         mazeStructure = new char*[rows];
                         for(int i =0; i < rows; i++){
                             mazeStructure[i] = new char[cols]; //becareful

@@ -5,6 +5,19 @@
 #include <ctime>     // For time()
 #include <random>
 
+
+//Contract:
+//Pre-conditions:
+//double vector visitiedCells must be initialse with all odd numbered cells as 
+//visited and the rest is not.
+//rows, cols, currRows and currCols must be odd integers greater than zero
+//bool randomGenerate must be false or true depending on testing and normal mode
+//last direction must be a integer (acts as a placeholder for later purpose)
+//Post-conditions:
+//last direction must be a integer greater than zero which is 
+//between 0 (up, 1(down), 2(left), 3(right)
+//generates a random valid direction and removes the wall between the new cell-
+// - and the current cell, repeats
 void generatePath(std::vector<std::vector<int>>& visitedCells, int rows, 
                         int cols, int currRow, int currCol, char** maze, 
                             bool& randomGenerate, int lastDirection = -1) {
@@ -99,6 +112,13 @@ void generatePath(std::vector<std::vector<int>>& visitedCells, int rows,
 
 
 
+ //Contract:
+ //Pre-conditions:
+//rows and cols must be odd integers greater than zero
+//exitRow & exitRow must be greater than zero and acts as a placeholder
+//Post conditions:
+//exitRows and exitCols are valid coordinates that are within one of the outer-
+// -walls
 void initializeExitPoint(int rows, int cols, unsigned int& exitRow,
                          unsigned int& exitCol) {
     
@@ -133,7 +153,13 @@ void initializeExitPoint(int rows, int cols, unsigned int& exitRow,
     
     
 
- 
+ //Contract:
+ //Pre-conditions:
+//rows and cols must be odd integers greater than zero
+//spawnRows & spawnCol must be greater than zero and acts as a placeholder
+//Post-conditions:
+//Generates a random odd integer within a odd empty cell which has a -
+// - a row greater than zero and less than (row -1)
 void initializeRandomSpawnPoint(int rows, int cols, unsigned int& spawnRow, 
                                 unsigned int& spawnCol) {
 
@@ -171,6 +197,9 @@ void initializeRandomSpawnPoint(int rows, int cols, unsigned int& spawnRow,
 
 }
 
+//Contract:
+//rows and cols must be integers greater than zero and are both odd
+//maze must be a 2d char array which is initialise with rows and cols
 void initializeMaze(char** maze, int rows, int cols) {
 
     
@@ -187,6 +216,12 @@ void initializeMaze(char** maze, int rows, int cols) {
 
 }
 
+//Contract:
+//Pre-conditions: 
+//double char array must be not  a nullpointer
+//rows and cols must be odd integers greater than zero
+//Post-conditions:
+//deletes double char array to remove memory leaks 
 void deallocateCharArray(char** charArray, int rows, int cols){
     if (charArray != nullptr){
         for (int i = 0 ; i < rows; ++i){
