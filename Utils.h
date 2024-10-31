@@ -15,7 +15,10 @@ void readMazeSize(int& mazeLength, int& mazeWidth){
 
         std::cin >> mazeLength;
         std::cin >> mazeWidth;
-
+        if (std::cin.eof()){
+            throw std::invalid_argument(
+                "Length and width must be positive odd integers");
+        }
         // Check if the input is valid
         if (std::cin.fail() || (mazeLength % 2 == 0 ||  mazeWidth % 2 == 0 
                     || mazeLength < 0 || mazeWidth < 0)) {
@@ -23,8 +26,9 @@ void readMazeSize(int& mazeLength, int& mazeWidth){
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-            std::cout << "Invalid input. Please enter two odd integers.\n" 
-                        << std::endl;
+            std::cout << "Invalid input. "
+                    << "Please enter two odd positive integers." 
+                    << std::endl;
         } else {
             // Clear buffer
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

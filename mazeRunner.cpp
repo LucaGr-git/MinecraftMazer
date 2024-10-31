@@ -77,6 +77,10 @@ int main(int argc, char** argv){
         getline(std::cin, inputLine);
         inputChar = inputLine[0];
 
+        if (std::cin.eof()){
+            inputChar = '5';
+        }
+
       
 
         int intState;
@@ -106,7 +110,10 @@ int main(int argc, char** argv){
                 getline(std::cin, inputLine);
                 inputChar = inputLine[0];
 
-                // flush input because input may have been too long
+                if (std::cin.eof()){
+                    inputChar = '3';
+                }
+
 
 
                 if (inputChar == '2'){
@@ -352,6 +359,10 @@ int main(int argc, char** argv){
 
                 getline(std::cin, inputLine);
                 inputChar = inputLine[0];
+
+                if (std::cin.eof()){
+                    inputChar = '3';
+                }
 
 
 
