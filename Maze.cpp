@@ -27,7 +27,7 @@ Maze::Maze(int length, int width):
 Maze::~Maze()
 {
     //delete memory
-    deallocateMazeStructure();
+    deallocateMazeStructure(this->width);
     deallocateStart();
 }
 
@@ -55,14 +55,14 @@ void Maze::setWidth(int width){
 }
 
 //Contract:
-//  Pre-Condition: Argument must not be a null pointer, and must have 3 values
+//  Pre-Condition: coordinate must have 3 values
 //  Post-Condition: Stores coordinate in start member.
-void Maze::setStart(mcpp::Coordinate* start){
+void Maze::setStart(mcpp::Coordinate start){
     if (this->start != nullptr){
         deallocateStart();
     }
 
-    this->start = new mcpp::Coordinate(start->x, start->y - 1, start->z);
+    this->start = new mcpp::Coordinate(start.x, start.y - 1, start.z);
 }
 
 
@@ -74,23 +74,27 @@ mcpp::Coordinate* Maze::getStart(void){
 //  Pre-Condition:
 //      - Characters must be 'X' or '.'
 //      - mazeStructure and its inner elements, must NOT be nullpointer
+//      - oldwidth parameter is correct
 //  Post-Condition: EnvStructure is updated with 2D char pointer array.
-void Maze::setMazeStructure(char** mazeStructure){
+void Maze::setMazeStructure(char** mazeStructure, int oldWidth){
     if (this->mazeStructure != nullptr){
-        deallocateMazeStructure();
+        deallocateMazeStructure(oldWidth);
     }
 
     this->mazeStructure = mazeStructure;
 }
 
+// Contract:
+// PreCondition: oldWidth is correct
 char** Maze::getMazeStructure(void){
     return this->mazeStructure;
 }
 
-void Maze::deallocateMazeStructure(){
+
+void Maze::deallocateMazeStructure(int oldWidth){
     //delete memory
     if (this->mazeStructure != nullptr) {
-        for(int i =0; i < this->getWidth(); i++){ 
+        for(int i =0; i < oldWidth; i++){ 
             if (this->mazeStructure[i] != nullptr){
                 delete[] this->mazeStructure[i];
                 this->mazeStructure[i] = nullptr;
@@ -101,6 +105,8 @@ void Maze::deallocateMazeStructure(){
     }
 
 }
+
+
 
 void Maze::deallocateStart(){
     //Deallocate start
@@ -636,16 +642,18 @@ const void Maze::revertBuildUpTerrain(int **  difference, int logicalX,
 *  Post-Conditions: 
 *  - This Method will print details about the maze
 */
-const void Maze::printMaze(mcpp::Coordinate* startCoord) {
+const void Maze::printMaze(mcpp::Coordinate startCoord) {
+    /*
     // Check for null pointer
     if (startCoord == nullptr){
         throw std::runtime_error("startCoord given is a null pointer");
     }
+    */
 
     std::cout << "**Printing Maze**\n";
     
-    std::cout << "BasePoint: (" << startCoord->x << ", " << startCoord->y 
-              << ", "  << startCoord->z << ")\n";
+    std::cout << "BasePoint: (" << startCoord.x << ", " << startCoord.y 
+              << ", "  << startCoord.z << ")\n";
     std::cout << "Structure:\n";
 
     // Check for null pointer

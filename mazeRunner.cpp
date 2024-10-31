@@ -51,7 +51,7 @@ int main(int argc, char** argv){
     // Create instance of Maze class
     Maze maze(1, 1);
     // Create a cordinate variable to keep track of inputted start coordinate
-    mcpp::Coordinate* start = nullptr;
+    mcpp::Coordinate start;
 
     // varaibles for 2d array
     int logicalX;
@@ -103,20 +103,22 @@ int main(int argc, char** argv){
 
                         srand(std::time(0));
 
-                        readMazeStart(start, false);
+                        readMazeStart(start, mode);
 
                            
                         //Read the width and width of maze (from user input)
                         int rows = 0;
                         int cols = 0;
 
+                        int oldWidth = maze.getWidth();
                         //height = 7 cols = 5                    
                         readMazeSize(cols, rows);
 
                         maze.setLength(cols);
                         maze.setWidth(rows);
 
-                        
+                        std::cout << maze.getLength() << std::endl;
+                        std::cout << maze.getWidth() << std::endl;
 
                         // Read the structure of the maze
                         char** mazeStructure;
@@ -176,7 +178,8 @@ int main(int argc, char** argv){
                                 currCols, mazeStructure, randomGenerate);
                         }
 
-                        maze.setMazeStructure(mazeStructure);
+                        maze.setMazeStructure(mazeStructure, oldWidth);
+
 
                         std::cout << "Initialize empty maze successfully\n";
 
@@ -205,6 +208,8 @@ int main(int argc, char** argv){
                     
                         readMazeStart(start, mode);
 
+                        int oldWidth = maze.getWidth();
+
                         //Read the width and width of maze (from user input)
                         int mazeLength = 0;
                         int mazeWidth = 0;
@@ -223,7 +228,7 @@ int main(int argc, char** argv){
                         }
                         readMazeStdin(mazeStructure, mazeLength, mazeWidth);
 
-                        maze.setMazeStructure(mazeStructure);
+                        maze.setMazeStructure(mazeStructure, oldWidth);
 
                         std::cout << "Maze read successfully\n";
 
@@ -269,7 +274,7 @@ int main(int argc, char** argv){
                 // Delay so the server can catch up to the getheight command
                 std::this_thread::sleep_for(std::chrono::milliseconds(50));
                 // Reset the height of the placed maze after a maze was deleted
-                start->y = mc.getHeight(start->x, start->z) + 1;
+                start.y = mc.getHeight(start.x, start.z) + 1;
 
             }
 
@@ -277,7 +282,7 @@ int main(int argc, char** argv){
 
             // If the maze is in it's default state i.e. a maze has not been 
             // loaded a message is displayed
-            if (maze.getMazeStructure() == nullptr || start == nullptr){
+            if (maze.getMazeStructure() == nullptr){
                 std::cout << "You have not loaded a maze yet.";
             }
             else {

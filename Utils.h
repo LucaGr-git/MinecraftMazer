@@ -24,12 +24,14 @@ void readMazeSize(int& mazeLength, int& mazeWidth){
 
 }
 
-void readMazeStart(mcpp::Coordinate* &start, bool mode){
+void readMazeStart(mcpp::Coordinate &start, bool mode){
+    /*
     //Checking if start is nullptr
     if (start != nullptr){
         delete start;
     }
     start = new mcpp::Coordinate();
+    */
     
 
     mcpp::MinecraftConnection mc;
@@ -49,7 +51,7 @@ void readMazeStart(mcpp::Coordinate* &start, bool mode){
 
     mcpp::Coordinate playerPos = mc.getPlayerPosition();
 
-    *(start) = mcpp::Coordinate(playerPos.x, 
+    start = mcpp::Coordinate(playerPos.x, 
                                   mc.getHeight(playerPos.x, playerPos.z) + 1,
                                   playerPos.z);
 

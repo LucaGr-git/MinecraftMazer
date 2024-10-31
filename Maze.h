@@ -44,10 +44,9 @@ public:
     void setWidth(int width);
 
     //Contract:
-    //  Pre-Condition: Argument must not be a null pointer, 
-    //  and must have 3 integer values
+    //  Pre-Condition: coordinate must have 3 values
     //  Post-Condition: Stores coordinate in start member.
-    void setStart(mcpp::Coordinate* start);
+    void setStart(mcpp::Coordinate start);
     mcpp::Coordinate* getStart(void);
 
     /* Contract:
@@ -60,8 +59,9 @@ public:
     //  Pre-Condition:
     //      - Characters must be 'X' or '.'
     //      - mazeStructure and its inner elements, must NOT be nullpointer
+    //      - oldWidth is correct`
     //  Post-Condition: EnvStructure is updated with 2D char pointer array.
-    void setMazeStructure(char** mazeStructure);
+    void setMazeStructure(char** mazeStructure, int oldWidth);
     char** getMazeStructure(void);
     
     /*
@@ -177,7 +177,7 @@ public:
     *  Post-Conditions: 
     *  - This Method will print details about the maze
     */
-    const void printMaze(mcpp::Coordinate* startCoord);
+    const void printMaze(mcpp::Coordinate startCoord);
     
 private:
     /* data */
@@ -187,8 +187,9 @@ private:
     mcpp::Coordinate* start;
 
     char** mazeStructure;
-
-    void deallocateMazeStructure();
+    // Contract:
+    // PreCondition: oldWidth is correct
+    void deallocateMazeStructure(int oldWidth);
 
     void deallocateStart();
 
