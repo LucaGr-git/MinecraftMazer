@@ -340,13 +340,19 @@ int main(int argc, char** argv){
                 Agent player(mcpp::Coordinate(0, 0, 0));
 
                 std::cin >> inputChar;
-                
+                if (mode){
+                // delay to allow player to fall down before menu starts
+                    std::this_thread::sleep_for(
+                                        std::chrono::milliseconds(2000));
+                }
                 // Solve manually menu function
                 if (inputChar == '1'){
+                    
                     if (hasBuilt){
                         maze.findMazeGaps();
                         if (mode == NORMAL_MODE) {
-                            MazeCoordinate randCoord = player.getRandomCoord(&maze);
+                            MazeCoordinate randCoord = 
+                            player.getRandomCoord(&maze);
                             player.teleportPlayer(*(maze.getStart()) 
                                 + mcpp::Coordinate(randCoord.getWidthCoord(), 
                                 ABOVE_GROUND_HEIGHT, 
@@ -354,8 +360,10 @@ int main(int argc, char** argv){
                         }
                         else {
                             player.teleportPlayer(*(maze.getStart()) +
-                            mcpp::Coordinate(maze.mazeGaps.at(maze.mazeGaps.size() - 1).getWidthCoord(),
-                            ABOVE_GROUND_HEIGHT, maze.mazeGaps.at(maze.mazeGaps.size() - 1).getLengthCoord()));
+                            mcpp::Coordinate(maze.mazeGaps.at(
+                                maze.mazeGaps.size() - 1).getWidthCoord(),
+                            ABOVE_GROUND_HEIGHT, maze.mazeGaps.at(
+                                maze.mazeGaps.size() - 1).getLengthCoord()));
                         }        
                     }
                     else{
@@ -366,6 +374,9 @@ int main(int argc, char** argv){
                 }
                 // Show escape route function
                 else if (inputChar == '2'){
+                    // delay to allow player to fall down before menu starts
+                    std::this_thread::sleep_for(
+                                        std::chrono::milliseconds(2000));
                     if (hasBuilt){
 
                         //Check if the player is within the maze
