@@ -22,7 +22,7 @@ Enter the length and width of maze:
 Enter the maze structure: 
 Maze read successfully
 **Printing Maze**
-BasePoint: (4848, -39, 4369)
+BasePoint: (4848, -57, 4369)
 Structure:
 x.xxx
 x.x.x
@@ -73,20 +73,20 @@ Enter Menu item to continue:
 3) Back
 
 Enter Menu item to continue: 
-Step[1]: (4850,-39,4374)
-Step[2]: (4850,-39,4373)
-Step[3]: (4851,-39,4373)
-Step[4]: (4850,-39,4373)
-Step[5]: (4850,-39,4372)
-Step[6]: (4850,-39,4371)
-Step[7]: (4851,-39,4371)
-Step[8]: (4851,-39,4370)
-Step[9]: (4851,-39,4371)
-Step[10]: (4850,-39,4371)
-Step[11]: (4849,-39,4371)
-Step[12]: (4849,-39,4370)
-Step[13]: (4849,-39,4369)
-Step[14]: (4849,-39,4368)
+Step[1]: (4850,-57,4374)
+Step[2]: (4850,-57,4373)
+Step[3]: (4851,-57,4373)
+Step[4]: (4850,-57,4373)
+Step[5]: (4850,-57,4372)
+Step[6]: (4850,-57,4371)
+Step[7]: (4851,-57,4371)
+Step[8]: (4851,-57,4370)
+Step[9]: (4851,-57,4371)
+Step[10]: (4850,-57,4371)
+Step[11]: (4849,-57,4371)
+Step[12]: (4849,-57,4370)
+Step[13]: (4849,-57,4369)
+Step[14]: (4849,-57,4368)
 
 ------------- MAIN MENU -------------
 1) Generate Maze
