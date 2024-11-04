@@ -5,9 +5,16 @@ Checkpoint 2 -
 Checkpoint 3 - 
 Checkpoint 4 -
 
+Usernames
+MeowMMORPG - Alysha Khan
+LucaGr-git - Luca Grosso
+TommyNgucode - Tommy Nguyen
+
 
 Task allocation:
 
 Luca - Build Maze and Cleanup Task, E1, Testing Alysha Code
 Alysha - Solve Maze functions, E2, Testing Tommy Code
 Tommy - Generate Maze functions, E3, Testing Luca Code
+
+
