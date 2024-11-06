@@ -375,6 +375,8 @@ int main(int argc, char** argv) {
                                 << "You must build a maze before solving.\n";
                         }
                     } else {
+                        std::cout
+                            << "Finding Fastest Route...\n";
                         AgentEnhancement playerEnhanced;
                         playerEnhanced.solveMaze();
                     }
