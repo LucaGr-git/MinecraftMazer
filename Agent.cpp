@@ -1,6 +1,7 @@
 #include "Agent.h"
 
 Agent::Agent(mcpp::Coordinate startLoc) { currentLoc = startLoc; }
+Agent::Agent() { currentLoc = mcpp::Coordinate(0,1,0); }
 
 Agent::~Agent() {}
 

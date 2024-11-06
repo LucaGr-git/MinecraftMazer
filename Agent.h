@@ -29,6 +29,7 @@ class Agent {
      *  Post-Conditions, Agent has data member currentLoc filled
      */
     Agent(mcpp::Coordinate startLoc);
+    Agent();
 
     ~Agent();
 
@@ -68,8 +69,8 @@ class Agent {
      */
     void solveMaze(bool mode);
 
-  private:
-    /* data */
+  protected:
+    //data
     mcpp::MinecraftConnection mc;
     mcpp::Coordinate currentLoc;
     bool movingZPos;

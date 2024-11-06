@@ -9,6 +9,7 @@
 #include "menuUtils.h"
 #include "Maze.h"
 #include "Agent.h"
+#include "AgentEnhancement.h"
 #include "LinkedBlocks.h"
 #include "BlockNode.h"
 
@@ -18,6 +19,7 @@
 
 #define NORMAL_MODE 0
 #define TESTING_MODE 1
+#define ENHANCEMENT_MODE 1
 #define ABOVE_GROUND_HEIGHT  1
 
 enum States{
@@ -32,11 +34,15 @@ enum States{
 int main(int argc, char** argv){
 
     bool mode = NORMAL_MODE;
+    bool enhancementMode = false;
     //read Mode
     // start at 1 to ignore executable
     for (int i = 1; i < argc; ++i) { 
         if (strcmp(argv[i], "-testmode") == 0){
             mode = TESTING_MODE;
+        }
+        else if (strcmp(argv[i], "-enhancemode") == 0){
+            enhancementMode = ENHANCEMENT_MODE;
         }
         else {
             std::cout << argv[i] << " is not a valid argument\n";
@@ -399,6 +405,7 @@ int main(int argc, char** argv){
                 }
                 // Show escape route function
                 else if (inputChar == '2'){
+                    if (enhancementMode != true) {
                     // delay to allow player to fall down before menu starts
                     std::this_thread::sleep_for(
                                         std::chrono::milliseconds(2000));
@@ -410,6 +417,11 @@ int main(int argc, char** argv){
                     }
                     else{
                         std::cout << "You must build a maze before solving.\n";
+                    }
+                    }
+                    else {
+                        AgentEnhancement playerEnhanced;
+                        playerEnhanced.solveMaze();
                     }
 
 
