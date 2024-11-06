@@ -17,4 +17,7 @@ Luca - Build Maze and Cleanup Task, E1, Testing Alysha Code
 Alysha - Solve Maze functions, E2, Testing Tommy Code
 Tommy - Generate Maze functions, E3, Testing Luca Code
 
+Notes for assessors:
+- Alysha E2, I have made a branch in the github called AlyshaEnhancement2, to run my code with enhancement functionalities, please use the flag "-enhancemode", (./mazeRunner -enhancemode)
+
 
