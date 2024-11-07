@@ -10,7 +10,7 @@ void readMazeSize(int& mazeLength, int& mazeWidth){
     mazeWidth = 2;
     std::cout << "Enter the length and width of maze: " << std::endl;
     while (mazeLength % 2 == 0 ||  mazeWidth % 2 == 0 
-                || mazeLength < 0 || mazeWidth < 0) {
+                || mazeLength < 3 || mazeWidth < 3) {
         
 
         std::cin >> mazeLength;
@@ -21,7 +21,7 @@ void readMazeSize(int& mazeLength, int& mazeWidth){
         }
         // Check if the input is valid
         if (std::cin.fail() || (mazeLength % 2 == 0 ||  mazeWidth % 2 == 0 
-                    || mazeLength < 0 || mazeWidth < 0)) {
+                    || mazeLength < 3 || mazeWidth < 3)) {
             // clear buffer
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

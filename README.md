@@ -11,3 +11,11 @@ Task allocation:
 Luca - Build Maze and Cleanup Task, E1, Testing Alysha Code
 Alysha - Solve Maze functions, E2, Testing Tommy Code
 Tommy - Generate Maze functions, E3, Testing Luca Code
+
+
+
+LUCA GROSSO ENHANCEMENT:
+- use enhancements via the terminal argument "-enhancement"
+- the enhancement does not carve paths around obstacles due to time constraints
+- also the solve menu options will not work properly as they are designed to
+work with a flat maze 

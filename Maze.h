@@ -28,33 +28,33 @@ public:
     //  Post-Condition: A new Env object is created, where data members, 
     //  length and width is filled.
     Maze(int length, int width);
-    ~Maze();
+    virtual ~Maze();
 
     //other methods
-    int getLength(void);
-    int getWidth(void);
+    virtual int getLength(void);
+    virtual int getWidth(void);
 
     //Contract:
     //  Pre-Condition: length must be greater than 1
     //  Post-Condition: Stores length in Env
-    void setLength(int length);
+    virtual void setLength(int length);
 
     //Contract:
     //  Pre-Condition: Width must be greater than 1
     //  Post-Condition: Stores width in Env
-    void setWidth(int width);
+    virtual void setWidth(int width);
 
     //Contract:
     //  Pre-Condition: coordinate must have 3 values
     //  Post-Condition: Stores coordinate in start member.
-    void setStart(mcpp::Coordinate start);
-    mcpp::Coordinate* getStart(void);
+    virtual void setStart(mcpp::Coordinate start);
+    virtual mcpp::Coordinate* getStart(void);
 
     /* Contract:
     *   Pre-Conditions: Maze structure, length, and width members must be filled
     *   Post-Conditions: Member mazeGaps get filled with empty maze coords
     */
-    void findMazeGaps();
+    virtual void findMazeGaps();
 
     //Contract: 
     //  Pre-Condition:
@@ -62,8 +62,8 @@ public:
     //      - mazeStructure and its inner elements, must NOT be nullpointer
     //      - oldWidth is correct`
     //  Post-Condition: EnvStructure is updated with 2D char pointer array.
-    void setMazeStructure(char** mazeStructure, int oldWidth);
-    char** getMazeStructure(void);
+    virtual void setMazeStructure(char** mazeStructure, int oldWidth);
+    virtual char** getMazeStructure(void);
     
     /*
     * Builds the maze at the start coordinate based on the maze structure given
@@ -74,7 +74,7 @@ public:
     *  Post-Conditions: A maze is built in the minecraft world based on the
     *   members set in the Maze class
     */
-    void buildMaze();
+    virtual void buildMaze();
 
     /* Gets the values of the area that the maze is going to be built
     *  You can use this before (or after) the maze structure has been built to 
@@ -85,7 +85,7 @@ public:
     *       - Especially start, height, width
     *  Post-Conditions: A HeightMap 2D array is created with the area's height.
     */
-    mcpp::HeightMap getHeightMaze();
+    virtual mcpp::HeightMap getHeightMaze();
 
 
     /* Gets the values of the area that the maze is going to be built
@@ -99,7 +99,7 @@ public:
     *  Post-Conditions: A HeightMap 2D array is created with the area's height 
     * The maze clears and all elements that would be changed are added to list
     */
-    mcpp::HeightMap getHeightMaze(LinkedBlocks& blockList);
+    virtual mcpp::HeightMap getHeightMaze(LinkedBlocks& blockList);
 
     /* Contract:
     *  Pre-Conditions:
@@ -111,7 +111,8 @@ public:
     *  - This function will specifically check each positive difference value, 
     *   and build up from the non-highest air block differnce times
     */
-    void buildUpTerrain(mcpp::HeightMap& worldHeight, int ** Difference);
+    virtual void buildUpTerrain(mcpp::HeightMap& worldHeight, 
+                                int ** Difference);
 
     /* Contract:
     *  Pre-Conditions:
@@ -126,15 +127,16 @@ public:
     *  - blockList will be prepended with all changed blocks original states in 
     *   the minecraft world
     */
-    void buildDownTerrain(mcpp::HeightMap& worldHeight, int ** Difference, 
-                          LinkedBlocks& blockList);
+    virtual void buildDownTerrain(mcpp::HeightMap& worldHeight, 
+                                int ** Difference, 
+                                LinkedBlocks& blockList);
 
 
     /* WIP : CompareHeightsFunction
     *  Parameters: mcpp::HeightMap, env object
     *  Conditions:
     */
-    int ** compareHeights(mcpp::HeightMap& worldHeight, int& logicalX, 
+    virtual int ** compareHeights(mcpp::HeightMap& worldHeight, int& logicalX, 
                           int& logicalZ);
 
     /* Contract:
@@ -148,7 +150,7 @@ public:
     *  - This function will revert the build up function and replace 
     *   all placed blocks by that function with air 
     */
-    const void revertBuildUpTerrain(int **  difference, int logicalX, 
+    virtual const void revertBuildUpTerrain(int **  difference, int logicalX, 
                                     int logicalZ);
 
     /* Contract:
@@ -158,7 +160,7 @@ public:
     *  Post-Conditions: 
     *  - a blue carpet will be placed in minecraft at the exit point 
     */
-    void placeBlueCarpet(LinkedBlocks& blockList);
+    virtual void placeBlueCarpet(LinkedBlocks& blockList);
 
     /*
     * Contract:
@@ -169,7 +171,7 @@ public:
     *  - all blocks in the passed linked list will be placed in the minecraft 
     *   world in the relevant coordinate
     */
-    void revertMazeBuild(LinkedBlocks& blockList);
+    virtual void revertMazeBuild(LinkedBlocks& blockList);
 
     /* Contract:
     *  Pre-Conditions:
@@ -178,9 +180,9 @@ public:
     *  Post-Conditions: 
     *  - This Method will print details about the maze
     */
-    const void printMaze(mcpp::Coordinate startCoord);
+    virtual const void printMaze(mcpp::Coordinate startCoord);
 
-    int findClosestGapDist();
+    virtual int findClosestGapDist();
     
 private:
     /* data */
@@ -192,9 +194,9 @@ private:
     char** mazeStructure;
     // Contract:
     // PreCondition: oldWidth is correct
-    void deallocateMazeStructure(int oldWidth);
+    virtual void deallocateMazeStructure(int oldWidth);
 
-    void deallocateStart();
+    virtual void deallocateStart();
 
     
 

@@ -15,6 +15,7 @@
 #include "Utils.h"
 
 #include "mazeGenerator.h"
+#include "MazeEnhanced.h"
 
 #define NORMAL_MODE 0
 #define TESTING_MODE 1
@@ -32,15 +33,25 @@ enum States{
 int main(int argc, char** argv){
 
     bool mode = NORMAL_MODE;
+
+    // Create a pointer of Maze class to allow for runtime polymorphism
+    Maze * maze = nullptr;
+
     //read Mode
     // start at 1 to ignore executable
     for (int i = 1; i < argc; ++i) { 
         if (strcmp(argv[i], "-testmode") == 0){
             mode = TESTING_MODE;
         }
+        else if (strcmp(argv[i], "-enhancement") == 0){
+            maze = new MazeEnhanced(1,1);
+        }
         else {
             std::cout << argv[i] << " is not a valid argument\n";
         }
+    }
+    if (maze == nullptr){
+        maze = new Maze(1,1);
     }
 
     mcpp::MinecraftConnection mc;
@@ -50,8 +61,7 @@ int main(int argc, char** argv){
     States curState = ST_Main;
 
 
-    // Create instance of Maze class
-    Maze maze(1, 1);
+    
     // Create a cordinate variable to keep track of inputted start coordinate
     mcpp::Coordinate start;
 
@@ -128,15 +138,15 @@ int main(int argc, char** argv){
                         int rows = 0;
                         int cols = 0;
 
-                        int oldWidth = maze.getWidth();
+                        int oldWidth = maze->getWidth();
                         //height = 7 cols = 5                    
                         readMazeSize(cols, rows);
 
-                        maze.setLength(cols);
-                        maze.setWidth(rows);
+                        maze->setLength(cols);
+                        maze->setWidth(rows);
 
-                        std::cout << maze.getLength() << std::endl;
-                        std::cout << maze.getWidth() << std::endl;
+                        std::cout << maze->getLength() << std::endl;
+                        std::cout << maze->getWidth() << std::endl;
 
                         // Read the structure of the maze
                         char** mazeStructure = nullptr;
@@ -196,14 +206,14 @@ int main(int argc, char** argv){
                                 currCols, mazeStructure, randomGenerate);
                         }
 
-                        maze.setMazeStructure(mazeStructure, oldWidth);
+                        maze->setMazeStructure(mazeStructure, oldWidth);
 
 
-                        std::cout << "Initialize empty maze successfully\n";
+                        std::cout << "Maze generateded successfully\n";
 
 
                         // for (int i =0)
-                        maze.printMaze(start);
+                        maze->printMaze(start);
 
                     }    
                     catch (std::invalid_argument const& e){
@@ -225,7 +235,7 @@ int main(int argc, char** argv){
                     
                         readMazeStart(start, mode);
 
-                        int oldWidth = maze.getWidth();
+                        int oldWidth = maze->getWidth();
 
                         //Read the width and width of maze (from user input)
                         int mazeLength = 0;
@@ -233,8 +243,8 @@ int main(int argc, char** argv){
 
                         readMazeSize(mazeLength, mazeWidth);
 
-                        maze.setLength(mazeLength);
-                        maze.setWidth(mazeWidth);
+                        maze->setLength(mazeLength);
+                        maze->setWidth(mazeWidth);
 
 
                         // Read the structure of the maze
@@ -245,11 +255,11 @@ int main(int argc, char** argv){
                         }
                         readMazeStdin(mazeStructure, mazeLength, mazeWidth);
 
-                        maze.setMazeStructure(mazeStructure, oldWidth);
+                        maze->setMazeStructure(mazeStructure, oldWidth);
 
                         std::cout << "Maze read successfully\n";
 
-                        maze.printMaze(start);
+                        maze->printMaze(start);
                     }
                     catch (std::invalid_argument const& e){
                         std::cout << "An error occured: " << e.what() << "\n";
@@ -278,8 +288,8 @@ int main(int argc, char** argv){
             // if a maze has been built it is cleaned up and reverted before 
             // a new one is placed
             if (hasBuilt){
-                maze.revertBuildUpTerrain(difference, logicalX, logicalZ);
-                maze.revertMazeBuild(blockList);
+                maze->revertBuildUpTerrain(difference, logicalX, logicalZ);
+                maze->revertMazeBuild(blockList);
                 // delete difference array
                 for (int i = 0; i < logicalX; ++i){
                     delete [] difference[i];
@@ -299,29 +309,30 @@ int main(int argc, char** argv){
 
             // If the maze is in it's default state i.e. a maze has not been 
             // loaded a message is displayed
-            if (maze.getMazeStructure() == nullptr){
+            if (maze->getMazeStructure() == nullptr){
                 std::cout << "You have not loaded a maze yet.";
             }
             else {
                 // set the start coordinate of maze
-                maze.setStart(start);
+                maze->setStart(start);
 
                 // Create a HeightMap variable, and call the function to get the
                 //  heights of all blocks within the maze coordinates
 
-                mcpp::HeightMap worldHeight = maze.getHeightMaze();
+                mcpp::HeightMap worldHeight = maze->getHeightMaze();
 
-                difference = maze.compareHeights(worldHeight, 
+                difference = maze->compareHeights(worldHeight, 
                                                  logicalX, 
                                                  logicalZ);
 
 
                 //First call BuildDownTerrain function
-                maze.buildDownTerrain(worldHeight, difference, blockList);
+                maze->buildDownTerrain(worldHeight, difference, blockList);
 
                 //Then call GetHeightMaze again to generate a new heightmap
 
-                worldHeight = maze.getHeightMaze(blockList);
+                worldHeight = maze->getHeightMaze(blockList);
+
                 
                 // Delete difference array 
 
@@ -332,18 +343,18 @@ int main(int argc, char** argv){
 
 
                 //Similarly call difference again, to get the new difference
-                difference = maze.compareHeights(worldHeight, 
+                difference = maze->compareHeights(worldHeight, 
                                                  logicalX, 
                                                  logicalZ);
 
 
                 //Call the Build up Terrain function
-                maze.buildUpTerrain(worldHeight, difference);
+                maze->buildUpTerrain(worldHeight, difference);
                 //Construct the environment
-            
-                maze.buildMaze(); 
+
+                maze->buildMaze(); 
                 // place carpet
-                maze.placeBlueCarpet(blockList);
+                maze->placeBlueCarpet(blockList);
                 
                 hasBuilt = true;
             }
@@ -375,20 +386,22 @@ int main(int argc, char** argv){
                 if (inputChar == '1'){
                     
                     if (hasBuilt){
-                        maze.findMazeGaps();
+                        maze->findMazeGaps();
                         if (mode == NORMAL_MODE) {
                             MazeCoordinate randCoord = 
-                            player.getRandomCoord(&maze);
-                            player.teleportPlayer(*(maze.getStart()) 
+                            player.getRandomCoord(maze);
+                            player.teleportPlayer(*(maze->getStart()) 
                                 + mcpp::Coordinate(randCoord.getWidthCoord(), 
                                 ABOVE_GROUND_HEIGHT, 
                                 randCoord.getLengthCoord()));
                         }
                         else {
-                            maze.findClosestGapDist();
-                            player.teleportPlayer(*(maze.getStart()) +
-                            mcpp::Coordinate(maze.mazeGaps.at(maze.findClosestGapDist()).getWidthCoord(),
-                            ABOVE_GROUND_HEIGHT, maze.mazeGaps.at(maze.findClosestGapDist()).getLengthCoord()));
+                            maze->findClosestGapDist();
+                            player.teleportPlayer(*(maze->getStart()) +
+                            mcpp::Coordinate(maze->mazeGaps.at(
+                                maze->findClosestGapDist()).getWidthCoord(),
+                            ABOVE_GROUND_HEIGHT, maze->mazeGaps.at(
+                                maze->findClosestGapDist()).getLengthCoord()));
                         }        
                     }
                     else{
@@ -438,8 +451,8 @@ int main(int argc, char** argv){
         
     }
     if (hasBuilt){
-        maze.revertBuildUpTerrain(difference, logicalX, logicalZ);
-        maze.revertMazeBuild(blockList);
+        maze->revertBuildUpTerrain(difference, logicalX, logicalZ);
+        maze->revertMazeBuild(blockList);
         // delete difference array
         if (difference != nullptr && difference != NULL) {
             for (int i = 0; i < logicalX; ++i){
@@ -452,6 +465,8 @@ int main(int argc, char** argv){
         }
     }
 
+    // delete maze pointer
+    delete maze;
     printExitMassage();
 
 
