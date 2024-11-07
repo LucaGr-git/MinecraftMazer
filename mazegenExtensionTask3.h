@@ -8,18 +8,13 @@
 #include <random>
 #include <cstring>
 
-void readEnv(char**& env, int& height, int& width) ;
-void printEnv(char** env, int height, int width) ;
 
-void checkUnfilledCells(char**& env, int height, int width, 
-            std::vector<std::pair<int,int>>& isolatedCells);
+void checkUnfilledCells(char**& env, int height, int width, std::vector<std::pair<int,int>>& isolatedCells);
 
 //for removing isolation
-void floodFill(char**& env, int height, int width, int entranceRows, 
-                                                    int entranceCols);
-void findEntrance(char**& env, int height, int width, int& entranceRows, 
-                                                    int& entranceCols) {
-    
+void floodFill(char**& env, int height, int width, int entranceRows, int entranceCols);
+void findEntrance(char**& env, int height, int width, int& entranceRows, int& entranceCols) {
+
 
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
@@ -27,6 +22,8 @@ void findEntrance(char**& env, int height, int width, int& entranceRows,
                 if (env[i][j] == '.') {
                     entranceRows = i;
                     entranceCols = j;
+                    
+
                 }
 
             }
@@ -44,18 +41,19 @@ void findEntrance(char**& env, int height, int width, int& entranceRows,
 }
 
 
-void checkUnfilledWalls(char**& env, int height, int width, 
-            std::vector<std::pair<int,int>>& isolatedCells);
+void checkUnfilledWalls(char**& env, int height, int width, std::vector<std::pair<int,int>>& isolatedCells);
 
 
 
 //for removing loop
 
-void floodFillLoop(char**& env, int height, int width, int entranceRows, 
-                                                        int entranceCols);
+void floodFillLoop(char**& env, int height, int width, int entranceRows, int entranceCols);
 void fixMazeStructure(char**& env, int height, int width);
 
 
+//contract
+//Pre-conditions: env must be not be null, height and width must be odd integers
+//Post-condition: env should now only contain 'x' as walls and ' ' as empty cells
 void fixMazeStructure(char**& env, int height, int width) {
     for (int i = 0 ; i < height ; i++ ) {
         for(int j = 0 ; j < width ; j++ ) {
@@ -69,9 +67,12 @@ void fixMazeStructure(char**& env, int height, int width) {
     }
 }
 
+//contract
+//Pre-conditions: env must be not be null, height and width must be odd integers, isolated cells must be declared
+//Post-condition: isolatedCells must be filled with pairs locating each empty cell and env must be flooded with '!' to
+// - find isolations.
+void checkUnfilledCells(char**& env, int height, int width, std::vector<std::pair<int,int>>& isolatedCells) {
 
-void checkUnfilledCells(char**& env, int height, int width, 
-                std::vector<std::pair<int,int>>& isolatedCells) {
 
     int newlyRow = 0;
     int newlyCol = 0;
@@ -141,14 +142,22 @@ void checkUnfilledCells(char**& env, int height, int width,
     }
 
 
-void floodFill(char**& env, int height, int width, int entranceRows, 
-                                                    int entranceCols) {
+//contract
+//Pre-conditions: env must be not be null and, height and width must be odd integers, 
+//entranceRows and entranceCols must be a odd integer that is both greater than 0 and 
+//less than rows-1 and wdith -1 respecitvely
+//Post-condition: Env is now flooded at the entrance point 
+void floodFill(char**& env, int height, int width, int entranceRows, int entranceCols) {
     std::queue<std::pair<int, int>> q;
 
     char targetCharToReplace;
         targetCharToReplace = env[entranceRows][entranceCols];
     char charToFill = ' ';
 
+    // int rowss = 0;
+    // int colss =0;
+    //push element into stack
+    // int counter = 0;
     if (!(targetCharToReplace == charToFill)) {
         q.push({entranceRows, entranceCols});
         env[entranceRows][entranceCols] = charToFill;
@@ -166,6 +175,8 @@ void floodFill(char**& env, int height, int width, int entranceRows,
             //assign variable to first element of stack
             int x = q.front().first;
             int y = q.front().second;
+            // std::cout << "row " << x << std::endl;
+            // std::cout << "col " << y << std::endl;
 
             //remove first element of stack
             q.pop();
@@ -175,10 +186,22 @@ void floodFill(char**& env, int height, int width, int entranceRows,
                 int newRow = x + it->first;
                 int newCol = y + it->second;
                         
+                // std::cout << "Nrow " << newRow << std::endl;
+                // std::cout << "Ncol " << newCol << std::endl;
                 if (newRow > 0 && newRow < (height - 1) && newCol > 0 && newCol < (width - 1) && env[newRow][newCol] == '.') {
                     env[newRow][newCol] = charToFill;
+                    // std::cout << "new " << env[newRow][newCol] << std::endl;
+                    // rowss = newRow;
+                    // colss = newCol;
                     q.push({newRow, newCol});
                 }
+
+                // counter++;
+
+
+                // if (counter == 4) {
+                //     floodFill(env, height, width, rowss, colss) ;
+                // }
             }   
 
         }        
@@ -186,9 +209,10 @@ void floodFill(char**& env, int height, int width, int entranceRows,
 
 }
 
-
-void checkUnfilledWalls(char**& env, int height, int width, 
-                std::vector<std::pair<int,int>>& isolatedCells) {
+//contract
+//Pre-conditions: env must be not be null, height and width must be odd integers, isolated cells must be declared
+//Post-condition: isolatedCells must be filled with pairs locating all outer walls to determine loops
+void checkUnfilledWalls(char**& env, int height, int width, std::vector<std::pair<int,int>>& isolatedCells) {
 
     int newlyRow = 0;
     int newlyCol = 0;
@@ -203,8 +227,8 @@ void checkUnfilledWalls(char**& env, int height, int width,
 
 
 
-    // int lastRow = -1;
-    // int lastCol = -1;
+    int lastRow = -1;
+    int lastCol = -1;
 
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
@@ -215,8 +239,8 @@ void checkUnfilledWalls(char**& env, int height, int width,
         }
     }
 
-    // lastRow = isolatedCells[0].first;
-    // lastCol = isolatedCells[0].second;
+    lastRow = isolatedCells[0].first;
+    lastCol = isolatedCells[0].second;
     // std::cout << "lastRow: " << lastRow << " col: " << lastCol << std::endl;
     std::random_device rng;
 
@@ -256,12 +280,12 @@ void checkUnfilledWalls(char**& env, int height, int width,
                 env[newlyRow][newlyCol] = 'x';
 
                 floodFillLoop(env, height, width, newlyRow, newlyCol);
+                                            std::cout << "works" << std::endl;
 
 
             }
         }
-void floodFillLoop(char**& env, int height, int width, int entranceRows, 
-                                                        int entranceCols) {
+void floodFillLoop(char**& env, int height, int width, int entranceRows, int entranceCols) {
     std::queue<std::pair<int, int>> q;
 
     char targetCharToReplace;
