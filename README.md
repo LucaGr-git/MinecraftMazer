@@ -20,4 +20,6 @@ Tommy - Generate Maze functions, E3, Testing Luca Code
 Notes for assessors:
 - Alysha E2, I have made a branch in the github called AlyshaEnhancement2, to run my code with enhancement functionalities, please use the flag "-enhancemode", (./mazeRunner -enhancemode)
 
+- Luca Grosso E1, I have made a branch in the github called LucaGrossoEnhancement1, to run my code with enhancement functionalities, please use the flag "-enhancement", (./mazeRunner -enhancement)
+
 
