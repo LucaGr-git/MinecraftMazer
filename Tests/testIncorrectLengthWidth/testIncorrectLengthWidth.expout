@@ -22,7 +22,7 @@ Enter the length and width of maze:
 Invalid input. Please enter two odd positive integers.
 3
 3
-Initialize empty maze successfully
+Maze generated successfully
 **Printing Maze**
 BasePoint: (4848, 72, 4369)
 Structure:

@@ -199,7 +199,7 @@ int main(int argc, char** argv){
                         maze.setMazeStructure(mazeStructure, oldWidth);
 
 
-                        std::cout << "Initialize empty maze successfully\n";
+                        std::cout << "Maze generated successfully\n";
 
 
                         // for (int i =0)
@@ -387,8 +387,10 @@ int main(int argc, char** argv){
                         else {
                             maze.findClosestGapDist();
                             player.teleportPlayer(*(maze.getStart()) +
-                            mcpp::Coordinate(maze.mazeGaps.at(maze.findClosestGapDist()).getWidthCoord(),
-                            ABOVE_GROUND_HEIGHT, maze.mazeGaps.at(maze.findClosestGapDist()).getLengthCoord()));
+                            mcpp::Coordinate(maze.mazeGaps.at(
+                                    maze.findClosestGapDist()).getWidthCoord(),
+                            ABOVE_GROUND_HEIGHT, maze.mazeGaps.at
+                                (maze.findClosestGapDist()).getLengthCoord()));
                         }        
                     }
                     else{

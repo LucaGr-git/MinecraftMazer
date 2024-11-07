@@ -21,7 +21,7 @@ In Minecraft, navigate to where you need the maze to be built in Minecraft and t
 Enter the length and width of maze: 
 7
 7
-Initialize empty maze successfully
+Maze generated successfully
 **Printing Maze**
 BasePoint: (4848, 72, 4369)
 Structure:
