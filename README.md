@@ -22,4 +22,6 @@ Notes for assessors:
 
 - Luca Grosso E1, I have made a branch in the github called LucaGrossoEnhancement1, to run my code with enhancement functionalities, please use the flag "-enhancement", (./mazeRunner -enhancement)
 
+- Tommy Nguyen E3, I have made a branch in the github called mazegenExtensionTask3, to run my code with enhancement functionalities, please use the flag "-enhancement", (./mazeRunner -enhancement)
+
 
