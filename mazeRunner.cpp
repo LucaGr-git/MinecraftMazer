@@ -15,9 +15,11 @@
 #include "Utils.h"
 
 #include "mazeGenerator.h"
+#include "mazegenExtensionTask3.h"
 
 #define NORMAL_MODE 0
 #define TESTING_MODE 1
+#define ENHANCE_MODE 1
 #define ABOVE_GROUND_HEIGHT  1
 
 enum States{
@@ -32,11 +34,15 @@ enum States{
 int main(int argc, char** argv){
 
     bool mode = NORMAL_MODE;
+    bool enhanceMode = 0;
     //read Mode
     // start at 1 to ignore executable
     for (int i = 1; i < argc; ++i) { 
         if (strcmp(argv[i], "-testmode") == 0){
             mode = TESTING_MODE;
+        }
+        else if (strcmp(argv[i], "-enhancemode") == 0){
+            enhanceMode = ENHANCE_MODE; 
         }
         else {
             std::cout << argv[i] << " is not a valid argument\n";
@@ -103,7 +109,7 @@ int main(int argc, char** argv){
         // if statements are determine what should be done based on state
         if (curState == ST_Main){
             while (inputChar != '1'  && inputChar != '2' && inputChar != '3'){
-
+                
                 printGenerateMazeMenu();
                 
 
@@ -118,12 +124,12 @@ int main(int argc, char** argv){
 
                 if (inputChar == '2'){
                     try {
-
+                        
                         srand(std::time(0));
-
+                        
                         readMazeStart(start, mode);
 
-                           
+
                         //Read the width and width of maze (from user input)
                         int rows = 0;
                         int cols = 0;
@@ -194,7 +200,7 @@ int main(int argc, char** argv){
                             unsigned int currCols = spawnCol;
                             generatePath(visitedCells, rows, cols, currRows, 
                                 currCols, mazeStructure, randomGenerate);
-                        }
+                            }
 
                         maze.setMazeStructure(mazeStructure, oldWidth);
 
@@ -243,7 +249,45 @@ int main(int argc, char** argv){
                         for(int i =0; i < mazeWidth; i++){
                             mazeStructure[i] = new char[mazeLength];
                         }
-                        readMazeStdin(mazeStructure, mazeLength, mazeWidth);
+                        
+                         readMazeStdin(mazeStructure, mazeLength, mazeWidth);
+
+
+                        //enhance mode
+
+                        if (enhanceMode) {
+                            int entranceRows = 0;
+                            int entranceCols = 0;
+
+                            std::vector<std::pair<int,int>> isolatedCells;
+
+                            // // std::cout << std::endl;
+
+                            // std::cout << "hi" << std::endl;
+                            findEntrance(mazeStructure, mazeWidth, mazeLength, entranceRows, entranceCols);
+                            //remove isolations
+                            floodFill(mazeStructure, mazeWidth, mazeLength, entranceRows, entranceCols);
+                            checkUnfilledCells(mazeStructure,  mazeWidth, mazeLength, isolatedCells);
+
+                                
+
+                                int emptyCellRow = 0;
+                                int emptyCellCol = 0;
+
+                                std::vector<std::pair<int,int>> outerWalls;
+
+                                //remove loops
+                                //find empty cell near outerWall
+                                // findCellOuterWall(envDup, height, width, emptyCellRow, emptyCellCol);
+                                floodFillLoop(mazeStructure, mazeWidth, mazeLength, emptyCellRow, emptyCellCol) ;
+                                checkUnfilledWalls(mazeStructure, mazeWidth, mazeLength, outerWalls);
+
+
+                                fixMazeStructure(mazeStructure, mazeWidth, mazeLength);      
+
+                                std::cout << "Maze fixed successfully!" << std::endl;                      
+
+                        }
 
                         maze.setMazeStructure(mazeStructure, oldWidth);
 
