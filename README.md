@@ -40,9 +40,9 @@ TO BE UPLOADED
 
 | Student          | Tasks                                                                 |
 |------------------|-----------------------------------------------------------------------|
-| **Luca Grosso**  | Build Maze + Cleanup (E1) • Testing Alysha’s Code                      |
-| **Alysha Khan**  | Maze Solving Functions (E2) • Testing Tommy’s Code                     |
-| **Tommy Nguyen** | Maze Generation Functions (E3) • Testing Luca’s Code                   |
+| **Luca Grosso**  | Build Maze + Cleanup  • Testing Alysha’s Code                      |
+| **Alysha Khan**  | Maze Solving Functions  • Testing Tommy’s Code                     |
+| **Tommy Nguyen** | Maze Generation Functions  • Testing Luca’s Code                   |
 
 ---
 
