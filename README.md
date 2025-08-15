@@ -19,6 +19,9 @@ TO BE UPLOADED
 
 - Enhancement features shown are not finalised
 
+<img width="1714" height="987" alt="image" src="https://github.com/user-attachments/assets/09825c62-e3ee-4131-af50-949a27c16fff" />
+
+
 ---
 
 ## 🚀 Key Features
