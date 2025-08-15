@@ -57,7 +57,8 @@ g++ -std=c++17 -o mazeRunner main.cpp
 
 ```
 
-> Note that you will need to set up a Minecraft spigot server that runs on a compatible version with the mccp library 
+> Note that you will need to set up a Minecraft spigot server that runs on a compatible version with the mccp library
+> https://github.com/rozukke/mcpp 
 
 ---
 
