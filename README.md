@@ -48,9 +48,10 @@ https://rmiteduau-my.sharepoint.com/:v:/g/personal/s4095471_student_rmit_edu_au/
 | **Luca (E1)**    | `LucaGrossoEnhancement1`         | `./mazeRunner -enhancement`                           |
 | **Tommy (E3)**   | `mazegenExtensionTask3`          | `./mazeRunner -enhancement`                           |
 
-> **Note:** Each branch implements its own enhancement functionality — use the corresponding flag to test the appropriate version.
+
 
 ---
+> **Note:** Each branch implements its own enhancement functionality — use the corresponding flag to test the appropriate version.
 
 ## ⚙️ How to Compile & Run
 
