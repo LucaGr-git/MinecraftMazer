@@ -42,7 +42,7 @@ TO BE UPLOADED
 |------------------|-----------------------------------------------------------------------|
 | **Luca Grosso**  | Build Maze + Cleanup  • Testing Alysha’s Code                      |
 | **Alysha Khan**  | Maze Solving Functions  • Testing Tommy’s Code                     |
-| **Tommy Nguyen** | Maze Generation Functions  • Testing Luca’s Code                   |
+| **Tommy Nguyen** | Maze Generation Functions - BFS  • Testing Luca’s Code                   |
 
 ---
 
